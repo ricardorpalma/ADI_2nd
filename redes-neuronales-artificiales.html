@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Capítulo 10 Redes Neuronales artificiales | Analitica de Datos Industriales Segunda Edición</title>
+<meta name="author" content="Dr. Ing. Ricardo R. Palma">
+<meta name="description" content="Las redes neuronales artificiales son modelos computacionales inspirados en el funcionamiento del cerebro humano. Están compuestas por una serie de unidades llamadas neuronas artificiales, que...">
+<meta name="generator" content="bookdown 0.44 with bs4_book()">
+<meta property="og:title" content="Capítulo 10 Redes Neuronales artificiales | Analitica de Datos Industriales Segunda Edición">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Las redes neuronales artificiales son modelos computacionales inspirados en el funcionamiento del cerebro humano. Están compuestas por una serie de unidades llamadas neuronas artificiales, que...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Capítulo 10 Redes Neuronales artificiales | Analitica de Datos Industriales Segunda Edición">
+<meta name="twitter:description" content="Las redes neuronales artificiales son modelos computacionales inspirados en el funcionamiento del cerebro humano. Están compuestas por una serie de unidades llamadas neuronas artificiales, que...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/scatterPlotMatrix-0.3/scatterPlotMatrix.css" rel="stylesheet">
+<script src="libs/scatterPlotMatrix-binding-0.3.0/scatterPlotMatrix.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Analitica de Datos Industriales Segunda Edición</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Acerca de este curso</a></li>
+<li><a class="" href="an%C3%A1lisis-exploratorio.html"><span class="header-section-number">1</span> Análisis Exploratorio</a></li>
+<li><a class="" href="identificaci%C3%B3n-de-valores-m%C3%ADnimos-y-m%C3%A1ximos-conteos-query.html"><span class="header-section-number">2</span> Identificación de valores mínimos y máximos, conteos (QUERY)</a></li>
+<li><a class="" href="ploteos-y-gr%C3%A1ficas.html"><span class="header-section-number">3</span> Ploteos y Gráficas</a></li>
+<li><a class="" href="estad%C3%ADsticos-univariados-normales.html"><span class="header-section-number">4</span> Estadísticos univariados normales</a></li>
+<li><a class="" href="datos-categ%C3%B3ricos.html"><span class="header-section-number">5</span> Datos Categóricos</a></li>
+<li><a class="" href="an%C3%A1lisis-multivariado.html"><span class="header-section-number">6</span> Análisis Multivariado</a></li>
+<li><a class="" href="data_analitics.html"><span class="header-section-number">7</span> Data_Analitics</a></li>
+<li><a class="" href="patrones-de-asociaci%C3%B3n.html"><span class="header-section-number">8</span> Patrones de asociación</a></li>
+<li><a class="" href="algoritmo-del-vecino-m%C3%A1s-pr%C3%B3ximo.html"><span class="header-section-number">9</span> Algoritmo del vecino más próximo</a></li>
+<li><a class="active" href="redes-neuronales-artificiales.html"><span class="header-section-number">10</span> Redes Neuronales artificiales</a></li>
+<li><a class="" href="clusterizaci%C3%B3n.html"><span class="header-section-number">11</span> Clusterización</a></li>
+<li><a class="" href="%C3%A1rboles-de-decisi%C3%B3n.html"><span class="header-section-number">12</span> Árboles de decisión</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="" href="bibliograf%C3%ADa.html">Bibliografía</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="redes-neuronales-artificiales" class="section level1" number="10">
+<h1>
+<span class="header-section-number">Capítulo 10</span> Redes Neuronales artificiales<a class="anchor" aria-label="anchor" href="#redes-neuronales-artificiales"><i class="fas fa-link"></i></a>
+</h1>
+<p>Las redes neuronales artificiales son modelos computacionales inspirados en el funcionamiento del cerebro humano. Están compuestas por una serie de unidades llamadas neuronas artificiales, que están conectadas entre sí a través de conexiones ponderadas. Estas conexiones permiten a las redes neuronales procesar información y realizar tareas de aprendizaje y predicción.</p>
+<div class="float">
+<img src="images/Neuron3.png" alt="Neurona Humana"><div class="figcaption">Neurona Humana</div>
+</div>
+<p>En ingeniería industrial, las redes neuronales artificiales se utilizan en una amplia variedad de aplicaciones, como:</p>
+<ol style="list-style-type: decimal">
+<li><p>Pronóstico de demanda: Las redes neuronales pueden utilizarse para predecir la demanda futura de productos o servicios en función de datos históricos, ayudando así a la planificación de la producción y la gestión de inventarios.</p></li>
+<li><p>Control de procesos: Las redes neuronales pueden utilizarse para controlar y optimizar procesos industriales. Pueden aprender de los datos recopilados en tiempo real y ajustar los parámetros del sistema para maximizar la eficiencia y minimizar los errores.</p></li>
+<li><p>Mantenimiento predictivo: Las redes neuronales pueden utilizarse para predecir fallos y realizar mantenimiento predictivo en maquinaria y equipos industriales. Al analizar datos de sensores y patrones de fallas anteriores, las redes neuronales pueden identificar señales de advertencia temprana y ayudar a evitar costosas interrupciones en la producción.</p></li>
+<li><p>Control de calidad: Las redes neuronales pueden utilizarse para realizar inspección y control de calidad en productos manufacturados. Pueden identificar defectos o anomalías en imágenes, señales o datos sensoriales, ayudando a mejorar la calidad del producto final.</p></li>
+<li><p>Optimización de la cadena de suministro: Las redes neuronales pueden utilizarse para optimizar la gestión de la cadena de suministro, analizando grandes volúmenes de datos y tomando decisiones óptimas en tiempo real sobre inventario, distribución y logística.</p></li>
+</ol>
+<p>La ventaja de las redes neuronales artificiales en ingeniería industrial radica en su capacidad para modelar relaciones complejas y no lineales entre variables, así como en su capacidad de aprendizaje a partir de datos. Sin embargo, es importante tener en cuenta que el uso de redes neuronales artificiales requiere una adecuada preparación y procesamiento de los datos, así como una validación y ajuste adecuados de los modelos para garantizar resultados confiables y precisos.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Hanane Zermane and Abbes Drardja, &lt;span&gt;“Development of an Efficient Cement Production Monitoring System Based on the Improved Random Forest Algorithm,”&lt;/span&gt; &lt;em&gt;The International Journal of Advanced Manufacturing Technology&lt;/em&gt; 120, nos. 3-4 (2022): 1853–66.&lt;/p&gt;"><sup>14</sup></a></span></p>
+<div class="float">
+<img src="images/ann.png" alt="Ejemplo de una red neuronal artificial de una capa occulta"><div class="figcaption">Ejemplo de una red neuronal artificial de una capa occulta</div>
+</div>
+<ul>
+<li><p>Si la ANN (Artificial Neural Net) tiene sólo una neurona de salida actua como clasificador dicotómico de la entrada.</p></li>
+<li><p>Si tiene varios niveles o categorías del tipo binario puede actuar como clasificador categórico</p></li>
+<li><p>Si tiene una salida de doble precisión puede actuar como predictor (clustering)</p></li>
+</ul>
+<div id="bibliografía-recomendada-2" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> Bibliografía recomendada<a class="anchor" aria-label="anchor" href="#bibliograf%C3%ADa-recomendada-2"><i class="fas fa-link"></i></a>
+</h2>
+<div class="float">
+<img src="images/book_12.png" alt="Análisis de datos categóricos"><div class="figcaption">Análisis de datos categóricos</div>
+</div>
+</div>
+<div id="redes-neuronales-en-r-cran" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> Redes Neuronales en R-Cran<a class="anchor" aria-label="anchor" href="#redes-neuronales-en-r-cran"><i class="fas fa-link"></i></a>
+</h2>
+<p>En R-Cran, puedes implementar redes neuronales artificiales utilizando la biblioteca “neuralnet”. Esta biblioteca proporciona funciones para construir y entrenar redes neuronales de una o varias capas en R.</p>
+<p>Aquí hay un ejemplo básico de cómo construir y entrenar una red neuronal artificial utilizando la biblioteca “neuralnet” en R-Cran:</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Instalación del paquete “neuralnet”:</p>
+<p>install.packages(“neuralnet”)</p>
+</li>
+<li>
+<p>Carga del paquete “neuralnet”:</p>
+<p>library(neuralnet)</p>
+</li>
+<li><p>Preparación de los datos de entrenamiento y prueba:</p></li>
+</ol>
+<p>Supongamos que tienes un conjunto de datos con variables de entrada (predictoras) llamadas “x1” y “x2” y una variable de salida (objetivo) llamada “y”. Debes dividir tus datos en conjuntos de entrenamiento y prueba. Aquí hay un ejemplo de cómo puedes hacerlo:</p>
+<pre><code>set.seed(123)  # Establecer una semilla aleatoria para reproducibilidad
+
+  # Dividir datos en conjuntos de entrenamiento y prueba
+
+train_indices &lt;- sample(1:nrow(tus_datos), nrow(tus_datos)*0.8)  # 80% de los datos para entrenamiento
+train_data &lt;- tus_datos[train_indices, ]
+test_data &lt;- tus_datos[-train_indices, ]</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Construcción de la red neuronal:</li>
+</ol>
+<p>Aquí puedes definir la arquitectura de tu red neuronal especificando el número de nodos en cada capa oculta. Por ejemplo, una red con una capa oculta de 5 nodos se puede definir de la siguiente manera:</p>
+<pre><code># Definir la fórmula de la red neuronal
+formula &lt;- y ~ x1 + x2</code></pre>
+<p>Crear la red neuronal</p>
+<pre><code>nn &lt;- neuralnet(formula, data = train_data, hidden = c(5))</code></pre>
+<p>En este ejemplo, “formula” especifica la relación entre las variables de entrada y salida, y “hidden” indica el número de nodos en la capa oculta.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Entrenamiento de la red neuronal:</li>
+</ol>
+<p>Utiliza la función “train” para entrenar la red neuronal con los datos de entrenamiento:</p>
+<p>Entrenar la red neuronal</p>
+<pre><code>trained_nn &lt;- train(nn)</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Predicción con la red neuronal entrenada:</li>
+</ol>
+<p>Utiliza la función “compute” para realizar predicciones con la red neuronal entrenada:</p>
+<p>Realizar predicciones con la red neuronal</p>
+<pre><code>predictions &lt;- compute(trained_nn, test_data[, c("x1", "x2")])</code></pre>
+<p>En este ejemplo, “test_data[, c(”x1”, ”x2”)]” son las variables de entrada para las cuales deseas realizar predicciones.</p>
+<p>Este es solo un ejemplo básico para construir y entrenar una red neuronal artificial en R-Cran utilizando la biblioteca “neuralnet”. Puedes consultar la documentación de la biblioteca para obtener más información sobre las funciones y opciones disponibles.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Nicolas Morizet et al., &lt;span&gt;“Classification of Acoustic Emission Signals Using Wavelets and &lt;span&gt;Random&lt;/span&gt; &lt;span&gt;Forests&lt;/span&gt;: &lt;span&gt;Application&lt;/span&gt; to Localized Corrosion,”&lt;/span&gt; &lt;em&gt;Mechanical Systems and Signal Processing&lt;/em&gt; 70 (2016): 1026–37.&lt;/p&gt;"><sup>15</sup></a></span></p>
+</div>
+<div id="caso-de-estudio-cargar-de-bibliotecas" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">10.3</span> Caso de estudio: Cargar de bibliotecas<a class="anchor" aria-label="anchor" href="#caso-de-estudio-cargar-de-bibliotecas"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bips-hb/neuralnet">neuralnet</a></span><span class="op">)</span>  <span class="co"># regression</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">nnet</a></span><span class="op">)</span> <span class="co"># classification </span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">NeuralNetTools</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://had.co.nz/plyr">plyr</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="carga-de-datos" class="section level2" number="10.4">
+<h2>
+<span class="header-section-number">10.4</span> Carga de Datos<a class="anchor" aria-label="anchor" href="#carga-de-datos"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span><span class="va">Startups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://ricardorpalma.github.io/R-Dataset/50_Startups_LAC.csv"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 50 Columns: 6</span></span>
+<span><span class="co">#&gt; ── Column specification ────────────────────────────────────</span></span>
+<span><span class="co">#&gt; Delimiter: ","</span></span>
+<span><span class="co">#&gt; chr (1): Pais</span></span>
+<span><span class="co">#&gt; dbl (5): R_D_Spend, POM, Logist_Market, Profit, Superviv...</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Categoric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://ricardorpalma.github.io/R-Dataset//50_Startups_Categoric_LAC.csv"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 50 Columns: 6</span></span>
+<span><span class="co">#&gt; ── Column specification ────────────────────────────────────</span></span>
+<span><span class="co">#&gt; Delimiter: ","</span></span>
+<span><span class="co">#&gt; chr (2): Pais, Supervivencia</span></span>
+<span><span class="co">#&gt; dbl (4): R_D_Spend, POM, Logist_Market, Profit</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+<p>La columna supervivencia de la tabla Categoric tiene etiquetas que identifican la situación en la que terminaron los emprendimientos, a saber:</p>
+<ul>
+<li><p><strong>SpinOf</strong> La empresa se separó de una principal y logró su independencia económica</p></li>
+<li><p><strong>RevEq</strong> La empresa alcanzó su punto de equilibrio canceló su deuda con el banco y fue comprada por la competencia.</p></li>
+<li><p><strong>BankR</strong> La empresa no prosperó y el banco se quedó con los activos que vendidos no compensaron el preśtamo inicial (Banca Rota).</p></li>
+</ul>
+</div>
+<div id="tratamiento-de-variables-categóricas" class="section level2" number="10.5">
+<h2>
+<span class="header-section-number">10.5</span> Tratamiento de variables categóricas<a class="anchor" aria-label="anchor" href="#tratamiento-de-variables-categ%C3%B3ricas"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tabla1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Pais</span><span class="op">)</span></span>
+<span><span class="va">tabla2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Supervivencia</span><span class="op">)</span></span>
+<span><span class="va">tabla3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Pais</span>,<span class="va">Categoric</span><span class="op">$</span><span class="va">Supervivencia</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tabla1</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span>,<span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tabla2</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span>,<span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tabla3</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span>,<span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+</div>
+<div id="histogramas-superpuestos" class="section level2" number="10.6">
+<h2>
+<span class="header-section-number">10.6</span> Histogramas superpuestos<a class="anchor" aria-label="anchor" href="#histogramas-superpuestos"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ind_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Pais</span><span class="op">==</span><span class="st">"Colombia"</span><span class="op">)</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">[</span><span class="va">ind_1</span>,<span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Pais</span><span class="op">==</span><span class="st">"Ecuador"</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">[</span><span class="va">ind_2</span>,<span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Pais</span><span class="op">==</span><span class="st">"Chile"</span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">[</span><span class="va">ind_3</span>,<span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-9-2.png" width="672"></div>
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hp3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-9-3.png" width="672"></div>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span> <span class="va">hp1</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>,<span class="fl">200000</span><span class="op">)</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>,main<span class="op">=</span><span class="st">"Ecuador"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span> <span class="va">hp2</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span>,xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>,<span class="fl">200000</span><span class="op">)</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span><span class="op">)</span>,main<span class="op">=</span><span class="st">"Colombia"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span> <span class="va">hp3</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span>,xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>,<span class="fl">200000</span><span class="op">)</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span><span class="op">)</span>,main<span class="op">=</span><span class="st">"Chile"</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-9-4.png" width="672"></div>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span> <span class="va">hp1</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>,<span class="fl">200000</span><span class="op">)</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>,main<span class="op">=</span><span class="st">"Ecuador"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span> <span class="va">hp2</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span>,xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>,<span class="fl">200000</span><span class="op">)</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span><span class="op">)</span>,main<span class="op">=</span><span class="st">"Colombia"</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span> <span class="va">hp3</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span>,xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>,<span class="fl">200000</span><span class="op">)</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span><span class="op">)</span>,main<span class="op">=</span><span class="st">"Chile"</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">[</span> ,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">[</span> ,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Categoric</span><span class="op">$</span><span class="va">Pais</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/plyr/man/revalue.html">revalue</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Pais</span>,</span>
+<span>                          <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Colombia"</span><span class="op">=</span><span class="st">"0"</span>, <span class="st">"Ecuador"</span><span class="op">=</span><span class="st">"1"</span>,</span>
+<span>                            <span class="st">"Chile"</span><span class="op">=</span><span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: NAs introducidos por coerción</span></span></code></pre></div>
+</div>
+<div id="cuadro-de-campos-categóricos" class="section level2" number="10.7">
+<h2>
+<span class="header-section-number">10.7</span> Cuadro de campos categóricos<a class="anchor" aria-label="anchor" href="#cuadro-de-campos-categ%C3%B3ricos"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Categoric</span><span class="op">$</span><span class="va">Supervivencia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/plyr/man/revalue.html">revalue</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Supervivencia</span>,</span>
+<span>                          <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"BankR"</span><span class="op">=</span><span class="st">"0"</span>, <span class="st">"RevEq"</span><span class="op">=</span><span class="st">"1"</span>,</span>
+<span>                            <span class="st">"SpinOff"</span><span class="op">=</span><span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="profit-versus-país" class="section level2" number="10.8">
+<h2>
+<span class="header-section-number">10.8</span> Profit versus País<a class="anchor" aria-label="anchor" href="#profit-versus-pa%C3%ADs"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Pais</span>, <span class="va">Categoric</span><span class="op">$</span><span class="va">Profit</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+</div>
+<div id="visualización-de-tablas" class="section level2" number="10.9">
+<h2>
+<span class="header-section-number">10.9</span> Visualización de Tablas<a class="anchor" aria-label="anchor" href="#visualizaci%C3%B3n-de-tablas"><i class="fas fa-link"></i></a>
+</h2>
+<p>Tabla Textual</p>
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">)</span>, <span class="st">"pipe"</span>,  booktabs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>font_size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span></code></pre></div>
+<div class="inline-table"><table class="table" style="font-size: 8px; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:right;">
+R_D_Spend
+</th>
+<th style="text-align:right;">
+POM
+</th>
+<th style="text-align:right;">
+Logist_Market
+</th>
+<th style="text-align:right;">
+Pais
+</th>
+<th style="text-align:right;">
+Profit
+</th>
+<th style="text-align:right;">
+Supervivencia
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+165349.2
+</td>
+<td style="text-align:right;">
+136897.80
+</td>
+<td style="text-align:right;">
+471784.1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+192261.8
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+162597.7
+</td>
+<td style="text-align:right;">
+151377.59
+</td>
+<td style="text-align:right;">
+443898.5
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+191792.1
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+153441.5
+</td>
+<td style="text-align:right;">
+101145.55
+</td>
+<td style="text-align:right;">
+407934.5
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+191050.4
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+144372.4
+</td>
+<td style="text-align:right;">
+118671.85
+</td>
+<td style="text-align:right;">
+383199.6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+182902.0
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+142107.3
+</td>
+<td style="text-align:right;">
+91391.77
+</td>
+<td style="text-align:right;">
+366168.4
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+166187.9
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+131876.9
+</td>
+<td style="text-align:right;">
+99814.71
+</td>
+<td style="text-align:right;">
+362861.4
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+156991.1
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tabla Simple</p>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">)</span>, <span class="st">"simple"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">R_D_Spend</th>
+<th align="right">POM</th>
+<th align="right">Logist_Market</th>
+<th align="right">Pais</th>
+<th align="right">Profit</th>
+<th align="right">Supervivencia</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">165349.2</td>
+<td align="right">136897.80</td>
+<td align="right">471784.1</td>
+<td align="right">0</td>
+<td align="right">192261.8</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">162597.7</td>
+<td align="right">151377.59</td>
+<td align="right">443898.5</td>
+<td align="right">1</td>
+<td align="right">191792.1</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">153441.5</td>
+<td align="right">101145.55</td>
+<td align="right">407934.5</td>
+<td align="right">2</td>
+<td align="right">191050.4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">144372.4</td>
+<td align="right">118671.85</td>
+<td align="right">383199.6</td>
+<td align="right">0</td>
+<td align="right">182902.0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">142107.3</td>
+<td align="right">91391.77</td>
+<td align="right">366168.4</td>
+<td align="right">2</td>
+<td align="right">166187.9</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">131876.9</td>
+<td align="right">99814.71</td>
+<td align="right">362861.4</td>
+<td align="right">0</td>
+<td align="right">156991.1</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_paper</a></span><span class="op">(</span><span class="st">"hover"</span>, full_width <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span></code></pre></div>
+<div class="inline-table"><table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead><tr>
+<th style="text-align:right;">
+R_D_Spend
+</th>
+<th style="text-align:right;">
+POM
+</th>
+<th style="text-align:right;">
+Logist_Market
+</th>
+<th style="text-align:right;">
+Pais
+</th>
+<th style="text-align:right;">
+Profit
+</th>
+<th style="text-align:right;">
+Supervivencia
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+165349.20
+</td>
+<td style="text-align:right;">
+136897.80
+</td>
+<td style="text-align:right;">
+471784.10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+192261.83
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+162597.70
+</td>
+<td style="text-align:right;">
+151377.59
+</td>
+<td style="text-align:right;">
+443898.53
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+191792.06
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+153441.51
+</td>
+<td style="text-align:right;">
+101145.55
+</td>
+<td style="text-align:right;">
+407934.54
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+191050.39
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+144372.41
+</td>
+<td style="text-align:right;">
+118671.85
+</td>
+<td style="text-align:right;">
+383199.62
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+182901.99
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+142107.34
+</td>
+<td style="text-align:right;">
+91391.77
+</td>
+<td style="text-align:right;">
+366168.42
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+166187.94
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+131876.90
+</td>
+<td style="text-align:right;">
+99814.71
+</td>
+<td style="text-align:right;">
+362861.36
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+156991.12
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+134615.46
+</td>
+<td style="text-align:right;">
+147198.87
+</td>
+<td style="text-align:right;">
+127716.82
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+156122.51
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+130298.13
+</td>
+<td style="text-align:right;">
+145530.06
+</td>
+<td style="text-align:right;">
+323876.68
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+155752.60
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+120542.52
+</td>
+<td style="text-align:right;">
+148718.95
+</td>
+<td style="text-align:right;">
+311613.29
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+152211.77
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+123334.88
+</td>
+<td style="text-align:right;">
+108679.17
+</td>
+<td style="text-align:right;">
+304981.62
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+149759.96
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+101913.08
+</td>
+<td style="text-align:right;">
+110594.11
+</td>
+<td style="text-align:right;">
+229160.95
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+146121.95
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+100671.96
+</td>
+<td style="text-align:right;">
+91790.61
+</td>
+<td style="text-align:right;">
+249744.55
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+144259.40
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+93863.75
+</td>
+<td style="text-align:right;">
+127320.38
+</td>
+<td style="text-align:right;">
+249839.44
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+141585.52
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+91992.39
+</td>
+<td style="text-align:right;">
+135495.07
+</td>
+<td style="text-align:right;">
+252664.93
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+134307.35
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+119943.24
+</td>
+<td style="text-align:right;">
+156547.42
+</td>
+<td style="text-align:right;">
+256512.92
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+132602.65
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+114523.61
+</td>
+<td style="text-align:right;">
+122616.84
+</td>
+<td style="text-align:right;">
+261776.23
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+129917.04
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+78013.11
+</td>
+<td style="text-align:right;">
+121597.55
+</td>
+<td style="text-align:right;">
+264346.06
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+126992.93
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+94657.16
+</td>
+<td style="text-align:right;">
+145077.58
+</td>
+<td style="text-align:right;">
+282574.31
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+125370.37
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+91749.16
+</td>
+<td style="text-align:right;">
+114175.79
+</td>
+<td style="text-align:right;">
+294919.57
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+124266.90
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+86419.70
+</td>
+<td style="text-align:right;">
+153514.11
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+122776.86
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+76253.86
+</td>
+<td style="text-align:right;">
+113867.30
+</td>
+<td style="text-align:right;">
+298664.47
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+118474.03
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+78389.47
+</td>
+<td style="text-align:right;">
+153773.43
+</td>
+<td style="text-align:right;">
+299737.29
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+111313.02
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+73994.56
+</td>
+<td style="text-align:right;">
+122782.75
+</td>
+<td style="text-align:right;">
+303319.26
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+110352.25
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+67532.53
+</td>
+<td style="text-align:right;">
+105751.03
+</td>
+<td style="text-align:right;">
+304768.73
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+108733.99
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+77044.01
+</td>
+<td style="text-align:right;">
+99281.34
+</td>
+<td style="text-align:right;">
+140574.81
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+108552.04
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+64664.71
+</td>
+<td style="text-align:right;">
+139553.16
+</td>
+<td style="text-align:right;">
+137962.62
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+107404.34
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+75328.87
+</td>
+<td style="text-align:right;">
+144135.98
+</td>
+<td style="text-align:right;">
+134050.07
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+105733.54
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+72107.60
+</td>
+<td style="text-align:right;">
+127864.55
+</td>
+<td style="text-align:right;">
+353183.81
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+105008.31
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+66051.52
+</td>
+<td style="text-align:right;">
+182645.56
+</td>
+<td style="text-align:right;">
+118148.20
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+103282.38
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+65605.48
+</td>
+<td style="text-align:right;">
+153032.06
+</td>
+<td style="text-align:right;">
+107138.38
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+101004.64
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+61994.48
+</td>
+<td style="text-align:right;">
+115641.28
+</td>
+<td style="text-align:right;">
+91131.24
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+99937.59
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+61136.38
+</td>
+<td style="text-align:right;">
+152701.92
+</td>
+<td style="text-align:right;">
+88218.23
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+97483.56
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+63408.86
+</td>
+<td style="text-align:right;">
+129219.61
+</td>
+<td style="text-align:right;">
+46085.25
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+97427.84
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+55493.95
+</td>
+<td style="text-align:right;">
+103057.49
+</td>
+<td style="text-align:right;">
+214634.81
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+96778.92
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+46426.07
+</td>
+<td style="text-align:right;">
+157693.92
+</td>
+<td style="text-align:right;">
+210797.67
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+96712.80
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+46014.02
+</td>
+<td style="text-align:right;">
+85047.44
+</td>
+<td style="text-align:right;">
+205517.64
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+96479.51
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+28663.76
+</td>
+<td style="text-align:right;">
+127056.21
+</td>
+<td style="text-align:right;">
+201126.82
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+90708.19
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+44069.95
+</td>
+<td style="text-align:right;">
+51283.14
+</td>
+<td style="text-align:right;">
+197029.42
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+89949.14
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20229.59
+</td>
+<td style="text-align:right;">
+65947.93
+</td>
+<td style="text-align:right;">
+185265.10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+81229.06
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+38558.51
+</td>
+<td style="text-align:right;">
+82982.09
+</td>
+<td style="text-align:right;">
+174999.30
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+81005.76
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+28754.33
+</td>
+<td style="text-align:right;">
+118546.05
+</td>
+<td style="text-align:right;">
+172795.67
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+78239.91
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+27892.92
+</td>
+<td style="text-align:right;">
+84710.77
+</td>
+<td style="text-align:right;">
+164470.71
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+77798.83
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+23640.93
+</td>
+<td style="text-align:right;">
+96189.63
+</td>
+<td style="text-align:right;">
+148001.11
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+71498.49
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15505.73
+</td>
+<td style="text-align:right;">
+127382.30
+</td>
+<td style="text-align:right;">
+35534.17
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+69758.98
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22177.74
+</td>
+<td style="text-align:right;">
+154806.14
+</td>
+<td style="text-align:right;">
+28334.72
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+65200.33
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1000.23
+</td>
+<td style="text-align:right;">
+124153.04
+</td>
+<td style="text-align:right;">
+1903.93
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+64926.08
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1315.46
+</td>
+<td style="text-align:right;">
+115816.21
+</td>
+<td style="text-align:right;">
+297114.46
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+49490.75
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+135426.92
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+42559.73
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+542.05
+</td>
+<td style="text-align:right;">
+51743.15
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+35673.41
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+116983.80
+</td>
+<td style="text-align:right;">
+45173.06
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+14681.40
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Tablas estilo Tesis Di3"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_classic</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span>, html_font <span class="op">=</span> <span class="st">"Cambria"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span></code></pre></div>
+<div class="inline-table"><table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-19">Table 10.1: </span>Tablas estilo Tesis Di3
+</caption>
+<thead><tr>
+<th style="text-align:right;">
+R_D_Spend
+</th>
+<th style="text-align:right;">
+POM
+</th>
+<th style="text-align:right;">
+Logist_Market
+</th>
+<th style="text-align:right;">
+Pais
+</th>
+<th style="text-align:right;">
+Profit
+</th>
+<th style="text-align:right;">
+Supervivencia
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+165349.20
+</td>
+<td style="text-align:right;">
+136897.80
+</td>
+<td style="text-align:right;">
+471784.10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+192261.83
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+162597.70
+</td>
+<td style="text-align:right;">
+151377.59
+</td>
+<td style="text-align:right;">
+443898.53
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+191792.06
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+153441.51
+</td>
+<td style="text-align:right;">
+101145.55
+</td>
+<td style="text-align:right;">
+407934.54
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+191050.39
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+144372.41
+</td>
+<td style="text-align:right;">
+118671.85
+</td>
+<td style="text-align:right;">
+383199.62
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+182901.99
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+142107.34
+</td>
+<td style="text-align:right;">
+91391.77
+</td>
+<td style="text-align:right;">
+366168.42
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+166187.94
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+131876.90
+</td>
+<td style="text-align:right;">
+99814.71
+</td>
+<td style="text-align:right;">
+362861.36
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+156991.12
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+134615.46
+</td>
+<td style="text-align:right;">
+147198.87
+</td>
+<td style="text-align:right;">
+127716.82
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+156122.51
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+130298.13
+</td>
+<td style="text-align:right;">
+145530.06
+</td>
+<td style="text-align:right;">
+323876.68
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+155752.60
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+120542.52
+</td>
+<td style="text-align:right;">
+148718.95
+</td>
+<td style="text-align:right;">
+311613.29
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+152211.77
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+123334.88
+</td>
+<td style="text-align:right;">
+108679.17
+</td>
+<td style="text-align:right;">
+304981.62
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+149759.96
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+100671.96
+</td>
+<td style="text-align:right;">
+91790.61
+</td>
+<td style="text-align:right;">
+249744.55
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+144259.40
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+93863.75
+</td>
+<td style="text-align:right;">
+127320.38
+</td>
+<td style="text-align:right;">
+249839.44
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+141585.52
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+119943.24
+</td>
+<td style="text-align:right;">
+156547.42
+</td>
+<td style="text-align:right;">
+256512.92
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+132602.65
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+114523.61
+</td>
+<td style="text-align:right;">
+122616.84
+</td>
+<td style="text-align:right;">
+261776.23
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+129917.04
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+78013.11
+</td>
+<td style="text-align:right;">
+121597.55
+</td>
+<td style="text-align:right;">
+264346.06
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+126992.93
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+94657.16
+</td>
+<td style="text-align:right;">
+145077.58
+</td>
+<td style="text-align:right;">
+282574.31
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+125370.37
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+86419.70
+</td>
+<td style="text-align:right;">
+153514.11
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+122776.86
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+76253.86
+</td>
+<td style="text-align:right;">
+113867.30
+</td>
+<td style="text-align:right;">
+298664.47
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+118474.03
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+78389.47
+</td>
+<td style="text-align:right;">
+153773.43
+</td>
+<td style="text-align:right;">
+299737.29
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+111313.02
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+67532.53
+</td>
+<td style="text-align:right;">
+105751.03
+</td>
+<td style="text-align:right;">
+304768.73
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+108733.99
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+64664.71
+</td>
+<td style="text-align:right;">
+139553.16
+</td>
+<td style="text-align:right;">
+137962.62
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+107404.34
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+75328.87
+</td>
+<td style="text-align:right;">
+144135.98
+</td>
+<td style="text-align:right;">
+134050.07
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+105733.54
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+72107.60
+</td>
+<td style="text-align:right;">
+127864.55
+</td>
+<td style="text-align:right;">
+353183.81
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+105008.31
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+66051.52
+</td>
+<td style="text-align:right;">
+182645.56
+</td>
+<td style="text-align:right;">
+118148.20
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+103282.38
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+61994.48
+</td>
+<td style="text-align:right;">
+115641.28
+</td>
+<td style="text-align:right;">
+91131.24
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+99937.59
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+61136.38
+</td>
+<td style="text-align:right;">
+152701.92
+</td>
+<td style="text-align:right;">
+88218.23
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+97483.56
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+55493.95
+</td>
+<td style="text-align:right;">
+103057.49
+</td>
+<td style="text-align:right;">
+214634.81
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+96778.92
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+46426.07
+</td>
+<td style="text-align:right;">
+157693.92
+</td>
+<td style="text-align:right;">
+210797.67
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+96712.80
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+46014.02
+</td>
+<td style="text-align:right;">
+85047.44
+</td>
+<td style="text-align:right;">
+205517.64
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+96479.51
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+44069.95
+</td>
+<td style="text-align:right;">
+51283.14
+</td>
+<td style="text-align:right;">
+197029.42
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+89949.14
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20229.59
+</td>
+<td style="text-align:right;">
+65947.93
+</td>
+<td style="text-align:right;">
+185265.10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+81229.06
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+38558.51
+</td>
+<td style="text-align:right;">
+82982.09
+</td>
+<td style="text-align:right;">
+174999.30
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+81005.76
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+28754.33
+</td>
+<td style="text-align:right;">
+118546.05
+</td>
+<td style="text-align:right;">
+172795.67
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+78239.91
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+27892.92
+</td>
+<td style="text-align:right;">
+84710.77
+</td>
+<td style="text-align:right;">
+164470.71
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+77798.83
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15505.73
+</td>
+<td style="text-align:right;">
+127382.30
+</td>
+<td style="text-align:right;">
+35534.17
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+69758.98
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22177.74
+</td>
+<td style="text-align:right;">
+154806.14
+</td>
+<td style="text-align:right;">
+28334.72
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+65200.33
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1315.46
+</td>
+<td style="text-align:right;">
+115816.21
+</td>
+<td style="text-align:right;">
+297114.46
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+49490.75
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+135426.92
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+42559.73
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+542.05
+</td>
+<td style="text-align:right;">
+51743.15
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+35673.41
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+116983.80
+</td>
+<td style="text-align:right;">
+45173.06
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+14681.40
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="normailización" class="section level2" number="10.10">
+<h2>
+<span class="header-section-number">10.10</span> Normailización<a class="anchor" aria-label="anchor" href="#normailizaci%C3%B3n"><i class="fas fa-link"></i></a>
+</h2>
+<p>Eliminaremos los datos que tienen NA</p>
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Categoric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">normalize</span><span class="op">&lt;-</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span> <span class="op">(</span> <span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">Startups_norm</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">Categoric</span>,FUN<span class="op">=</span><span class="va">normalize</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Startups_norm</span><span class="op">$</span><span class="va">Profit</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span><span class="co">#&gt;  0.0000  0.4116  0.5259  0.5581  0.7374  1.0000</span></span></code></pre></div>
+<p>Datos Originales y Datos normalizados</p>
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Profit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 192261.8 191792.1 191050.4 182902.0 166187.9 156991.1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Startups_norm</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   R_D_Spend       POM Logist_Market Pais    Profit</span></span>
+<span><span class="co">#&gt; 1 1.0000000 0.6517439     1.0000000  0.0 1.0000000</span></span>
+<span><span class="co">#&gt; 2 0.9833595 0.7619717     0.9408934  0.5 0.9973546</span></span>
+<span><span class="co">#&gt; 3 0.9279846 0.3795790     0.8646636  1.0 0.9931781</span></span>
+<span><span class="co">#&gt; 4 0.8731364 0.5129984     0.8122351  0.0 0.9472924</span></span>
+<span><span class="co">#&gt; 5 0.8594377 0.3053280     0.7761356  1.0 0.8531714</span></span>
+<span><span class="co">#&gt; 6 0.7975660 0.3694479     0.7691259  0.0 0.8013818</span></span>
+<span><span class="co">#&gt;   Supervivencia</span></span>
+<span><span class="co">#&gt; 1             1</span></span>
+<span><span class="co">#&gt; 2             1</span></span>
+<span><span class="co">#&gt; 3             1</span></span>
+<span><span class="co">#&gt; 4             1</span></span>
+<span><span class="co">#&gt; 5             1</span></span>
+<span><span class="co">#&gt; 6             1</span></span></code></pre></div>
+<p>Muestreo para entrenamento</p>
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">indice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/arules/man/sample.html">sample</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">Startups_norm</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">startups_train</span> <span class="op">&lt;-</span> <span class="va">Startups_norm</span><span class="op">[</span><span class="va">indice</span><span class="op">==</span><span class="fl">1</span>,<span class="op">]</span></span>
+<span><span class="va">startups_test</span>  <span class="op">&lt;-</span> <span class="va">Startups_norm</span><span class="op">[</span><span class="va">indice</span><span class="op">==</span><span class="fl">2</span>,<span class="op">]</span></span></code></pre></div>
+</div>
+<div id="modelo-de-neural-net" class="section level2" number="10.11">
+<h2>
+<span class="header-section-number">10.11</span> Modelo de Neural Net<a class="anchor" aria-label="anchor" href="#modelo-de-neural-net"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bips-hb/neuralnet">neuralnet</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/attach.html">attach</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">startups_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/neuralnet/man/neuralnet.html">neuralnet</a></span><span class="op">(</span><span class="va">Profit</span> <span class="op">~</span> <span class="va">R_D_Spend</span><span class="op">+</span> <span class="va">POM</span> <span class="op">+</span> <span class="va">Logist_Market</span> <span class="op">+</span> <span class="va">Pais</span> , data <span class="op">=</span> <span class="va">startups_train</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">startups_model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 14</span></span>
+<span><span class="co">#&gt;  $ call               : language neuralnet(formula = Profit ~ R_D_Spend + POM + Logist_Market +      Pais, data = startups_train)</span></span>
+<span><span class="co">#&gt;  $ response           : num [1:30, 1] 0.997 0.993 0.801 0.796 0.794 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:30] "2" "3" "6" "7" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr "Profit"</span></span>
+<span><span class="co">#&gt;  $ covariate          : num [1:30, 1:4] 0.983 0.928 0.798 0.814 0.788 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:30] "2" "3" "6" "7" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:4] "R_D_Spend" "POM" "Logist_Market" "Pais"</span></span>
+<span><span class="co">#&gt;  $ model.list         :List of 2</span></span>
+<span><span class="co">#&gt;   ..$ response : chr "Profit"</span></span>
+<span><span class="co">#&gt;   ..$ variables: chr [1:4] "R_D_Spend" "POM" "Logist_Market" "Pais"</span></span>
+<span><span class="co">#&gt;  $ err.fct            :function (x, y)  </span></span>
+<span><span class="co">#&gt;   ..- attr(*, "type")= chr "sse"</span></span>
+<span><span class="co">#&gt;  $ act.fct            :function (x)  </span></span>
+<span><span class="co">#&gt;   ..- attr(*, "type")= chr "logistic"</span></span>
+<span><span class="co">#&gt;  $ linear.output      : logi TRUE</span></span>
+<span><span class="co">#&gt;  $ data               :'data.frame': 30 obs. of  6 variables:</span></span>
+<span><span class="co">#&gt;   ..$ R_D_Spend    : num [1:30] 0.983 0.928 0.798 0.814 0.788 ...</span></span>
+<span><span class="co">#&gt;   ..$ POM          : num [1:30] 0.762 0.38 0.369 0.73 0.717 ...</span></span>
+<span><span class="co">#&gt;   ..$ Logist_Market: num [1:30] 0.941 0.865 0.769 0.271 0.686 ...</span></span>
+<span><span class="co">#&gt;   ..$ Pais         : num [1:30] 0.5 1 0 0.5 1 0 0.5 0.5 1 0 ...</span></span>
+<span><span class="co">#&gt;   ..$ Profit       : num [1:30] 0.997 0.993 0.801 0.796 0.794 ...</span></span>
+<span><span class="co">#&gt;   ..$ Supervivencia: num [1:30] 1 1 1 1 1 1 0.5 0.5 0.5 0.5 ...</span></span>
+<span><span class="co">#&gt;  $ exclude            : NULL</span></span>
+<span><span class="co">#&gt;  $ net.result         :List of 1</span></span>
+<span><span class="co">#&gt;   ..$ : num [1:30, 1] 0.911 0.9 0.832 0.825 0.836 ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. .. ..$ : chr [1:30] "2" "3" "6" "7" ...</span></span>
+<span><span class="co">#&gt;   .. .. ..$ : NULL</span></span>
+<span><span class="co">#&gt;  $ weights            :List of 1</span></span>
+<span><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : num [1:5, 1] -1.8371 4.1142 -0.0806 0.3251 0.1266</span></span>
+<span><span class="co">#&gt;   .. ..$ : num [1:2, 1] 0.0516 0.9286</span></span>
+<span><span class="co">#&gt;  $ generalized.weights:List of 1</span></span>
+<span><span class="co">#&gt;   ..$ : num [1:30, 1:4] 3.25 3.35 3.67 3.68 3.65 ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. .. ..$ : chr [1:30] "2" "3" "6" "7" ...</span></span>
+<span><span class="co">#&gt;   .. .. ..$ : NULL</span></span>
+<span><span class="co">#&gt;  $ startweights       :List of 1</span></span>
+<span><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : num [1:5, 1] 0.124 -0.661 0.343 -1.603 0.438</span></span>
+<span><span class="co">#&gt;   .. ..$ : num [1:2, 1] -0.685 -0.509</span></span>
+<span><span class="co">#&gt;  $ result.matrix      : num [1:10, 1] 0.05496 0.00932 180 -1.83714 4.11423 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:10] "error" "reached.threshold" "steps" "Intercept.to.1layhid1" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
+<span><span class="co">#&gt;  - attr(*, "class")= chr "nn"</span></span></code></pre></div>
+</div>
+<div id="ploteo-de-la-red-neuronal" class="section level2" number="10.12">
+<h2>
+<span class="header-section-number">10.12</span> Ploteo de la red Neuronal<a class="anchor" aria-label="anchor" href="#ploteo-de-la-red-neuronal"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">startups_model</span>, rep <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+</div>
+<div id="ploteo-de-la-red-proporcional" class="section level2" number="10.13">
+<h2>
+<span class="header-section-number">10.13</span> Ploteo de la red proporcional<a class="anchor" aria-label="anchor" href="#ploteo-de-la-red-proporcional"><i class="fas fa-link"></i></a>
+</h2>
+<p>Esto me indica cuales son los KPI</p>
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, family <span class="op">=</span> <span class="st">'serif'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/NeuralNetTools/man/plotnet.html">plotnet</a></span><span class="op">(</span><span class="va">startups_model</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
+<div id="evaluación-de-la-performance-del-modelo" class="section level3" number="10.13.1">
+<h3>
+<span class="header-section-number">10.13.1</span> Evaluación de la performance del modelo<a class="anchor" aria-label="anchor" href="#evaluaci%C3%B3n-de-la-performance-del-modelo"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/neuralnet/man/compute.html">compute</a></span><span class="op">(</span><span class="va">startups_model</span>,<span class="va">startups_test</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">predicted_profit</span> <span class="op">&lt;-</span> <span class="va">model_results</span><span class="op">$</span><span class="va">net.result</span></span></code></pre></div>
+</div>
+</div>
+<div id="predicted-profit-vs-actual-profit-of-test-data." class="section level2" number="10.14">
+<h2>
+<span class="header-section-number">10.14</span> Predicted profit Vs Actual profit of test data.<a class="anchor" aria-label="anchor" href="#predicted-profit-vs-actual-profit-of-test-data."><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">predicted_profit</span>,<span class="va">startups_test</span><span class="op">$</span><span class="va">Profit</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           [,1]</span></span>
+<span><span class="co">#&gt; [1,] 0.9628344</span></span></code></pre></div>
+</div>
+<div id="desnormalización-de-los-resultados" class="section level2" number="10.15">
+<h2>
+<span class="header-section-number">10.15</span> Desnormalización de los resultados<a class="anchor" aria-label="anchor" href="#desnormalizaci%C3%B3n-de-los-resultados"><i class="fas fa-link"></i></a>
+</h2>
+<p>Dado que hicimos la predicciones con los datos normalizados, ahora deberemos des-normalizarlos<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Majid Gholizadeh et al., &lt;span&gt;“Prediction of Nanofluids Viscosity Using Random Forest (&lt;span&gt;RF&lt;/span&gt;) Approach,”&lt;/span&gt; &lt;em&gt;Chemometrics and Intelligent Laboratory Systems&lt;/em&gt; 201 (2020): 104010.&lt;/p&gt;"><sup>16</sup></a></span></p>
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">str_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">Startups</span><span class="op">$</span><span class="va">Profit</span><span class="op">)</span></span>
+<span><span class="va">str_min</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">Startups</span><span class="op">$</span><span class="va">Profit</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">unnormalize</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">min</span>, <span class="va">max</span><span class="op">)</span> <span class="op">{</span> </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span> <span class="op">(</span><span class="va">max</span> <span class="op">-</span> <span class="va">min</span><span class="op">)</span><span class="op">*</span><span class="va">x</span> <span class="op">+</span> <span class="va">min</span> <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">ActualProfit_pred</span> <span class="op">&lt;-</span> <span class="fu">unnormalize</span><span class="op">(</span><span class="va">predicted_profit</span>,<span class="va">str_min</span>,<span class="va">str_max</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ActualProfit_pred</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        [,1]</span></span>
+<span><span class="co">#&gt; 1  176806.7</span></span>
+<span><span class="co">#&gt; 4  168710.2</span></span>
+<span><span class="co">#&gt; 5  169998.1</span></span>
+<span><span class="co">#&gt; 13 155767.9</span></span>
+<span><span class="co">#&gt; 15 118832.5</span></span>
+<span><span class="co">#&gt; 24 103573.9</span></span></code></pre></div>
+</div>
+<div id="mejoramiento-de-la-performance-del-modelo" class="section level2" number="10.16">
+<h2>
+<span class="header-section-number">10.16</span> Mejoramiento de la performance del modelo<a class="anchor" aria-label="anchor" href="#mejoramiento-de-la-performance-del-modelo"><i class="fas fa-link"></i></a>
+</h2>
+<p>Es posible mejorar la performance con el agregado de más capas ocultas.</p>
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Startups_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/neuralnet/man/neuralnet.html">neuralnet</a></span><span class="op">(</span><span class="va">Profit</span><span class="op">~</span><span class="va">R_D_Spend</span><span class="op">+</span> <span class="va">POM</span> <span class="op">+</span> <span class="va">Logist_Market</span> <span class="op">+</span> <span class="va">Pais</span> , data <span class="op">=</span> <span class="va">startups_train</span>, hidden <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Startups_model2</span> ,rep <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-30-1.png" width="672"></div>
+</div>
+<div id="performance-del-modelo-mejorado" class="section level2" number="10.17">
+<h2>
+<span class="header-section-number">10.17</span> Performance del modelo mejorado<a class="anchor" aria-label="anchor" href="#performance-del-modelo-mejorado"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model_results2</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/neuralnet/man/compute.html">compute</a></span><span class="op">(</span><span class="va">Startups_model2</span>,<span class="va">startups_test</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">predicted_Profit2</span><span class="op">&lt;-</span><span class="va">model_results2</span><span class="op">$</span><span class="va">net.result</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">predicted_Profit2</span>,<span class="va">startups_test</span><span class="op">$</span><span class="va">Profit</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           [,1]</span></span>
+<span><span class="co">#&gt; [1,] 0.9609024</span></span></code></pre></div>
+</div>
+<div id="modelo-mejorado-kpi" class="section level2" number="10.18">
+<h2>
+<span class="header-section-number">10.18</span> Modelo Mejorado KPI<a class="anchor" aria-label="anchor" href="#modelo-mejorado-kpi"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, family <span class="op">=</span> <span class="st">'serif'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/NeuralNetTools/man/plotnet.html">plotnet</a></span><span class="op">(</span><span class="va">Startups_model2</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+</div>
+<div id="neural-net-clasificación" class="section level2" number="10.19">
+<h2>
+<span class="header-section-number">10.19</span> Neural Net Clasificación<a class="anchor" aria-label="anchor" href="#neural-net-clasificaci%C3%B3n"><i class="fas fa-link"></i></a>
+</h2>
+<p>Armamos el dataset de datos a clasificar</p>
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">nnet</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">supervivencia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Supervivencia</span><span class="op">)</span></span>
+<span><span class="va">R_D_Spend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">R_D_Spend</span><span class="op">)</span></span>
+<span><span class="va">POM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">POM</span><span class="op">)</span></span>
+<span><span class="va">Logist_Market</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Categoric</span><span class="op">$</span><span class="va">Logist_Market</span><span class="op">)</span></span>
+<span><span class="va">Clasificar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span> <span class="op">(</span><span class="va">supervivencia</span>,<span class="va">R_D_Spend</span>,<span class="va">POM</span>,<span class="va">Logist_Market</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="muestreo" class="section level2" number="10.20">
+<h2>
+<span class="header-section-number">10.20</span> Muestreo<a class="anchor" aria-label="anchor" href="#muestreo"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">indice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/arules/man/sample.html">sample</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">Clasificar</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">clasificar_train</span> <span class="op">&lt;-</span> <span class="va">Startups_norm</span><span class="op">[</span><span class="va">indice</span><span class="op">==</span><span class="fl">1</span>,<span class="op">]</span></span>
+<span><span class="va">clasificar_test</span>  <span class="op">&lt;-</span> <span class="va">Startups_norm</span><span class="op">[</span><span class="va">indice</span><span class="op">==</span><span class="fl">2</span>,<span class="op">]</span></span>
+<span></span>
+<span><span class="va">supervivientes_clasificados</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">clasificar_train</span><span class="op">$</span><span class="va">Supervivencia</span><span class="op">)</span></span></code></pre></div>
+<p>Entrenamiento de nnet como clasificador</p>
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">supervivientes_train</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/nnet/man/nnet.html">nnet</a></span><span class="op">(</span><span class="va">supervivientes_clasificados</span><span class="op">~</span><span class="va">clasificar_train</span><span class="op">$</span><span class="va">R_D_Spend</span> <span class="op">+</span> <span class="va">clasificar_train</span><span class="op">$</span><span class="va">POM</span><span class="op">+</span> <span class="va">clasificar_train</span><span class="op">$</span><span class="va">Logist_Market</span> ,data<span class="op">=</span><span class="va">clasificar_train</span>,size<span class="op">=</span><span class="fl">5</span>, decay<span class="op">=</span><span class="fl">5e-4</span>, maxit<span class="op">=</span><span class="fl">2000</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # weights:  38</span></span>
+<span><span class="co">#&gt; initial  value 30.618845 </span></span>
+<span><span class="co">#&gt; iter  10 value 9.920325</span></span>
+<span><span class="co">#&gt; iter  20 value 4.196626</span></span>
+<span><span class="co">#&gt; iter  30 value 2.889551</span></span>
+<span><span class="co">#&gt; iter  40 value 2.073058</span></span>
+<span><span class="co">#&gt; iter  50 value 1.613938</span></span>
+<span><span class="co">#&gt; iter  60 value 1.539713</span></span>
+<span><span class="co">#&gt; iter  70 value 1.432790</span></span>
+<span><span class="co">#&gt; iter  80 value 1.375105</span></span>
+<span><span class="co">#&gt; iter  90 value 1.325779</span></span>
+<span><span class="co">#&gt; iter 100 value 1.231268</span></span>
+<span><span class="co">#&gt; iter 110 value 1.190554</span></span>
+<span><span class="co">#&gt; iter 120 value 1.179915</span></span>
+<span><span class="co">#&gt; iter 130 value 1.173316</span></span>
+<span><span class="co">#&gt; iter 140 value 1.165143</span></span>
+<span><span class="co">#&gt; iter 150 value 1.150997</span></span>
+<span><span class="co">#&gt; iter 160 value 1.145478</span></span>
+<span><span class="co">#&gt; iter 170 value 1.142106</span></span>
+<span><span class="co">#&gt; iter 180 value 1.138962</span></span>
+<span><span class="co">#&gt; iter 190 value 1.137330</span></span>
+<span><span class="co">#&gt; iter 200 value 1.136549</span></span>
+<span><span class="co">#&gt; iter 210 value 1.135992</span></span>
+<span><span class="co">#&gt; iter 220 value 1.135597</span></span>
+<span><span class="co">#&gt; iter 230 value 1.134803</span></span>
+<span><span class="co">#&gt; iter 240 value 1.130649</span></span>
+<span><span class="co">#&gt; iter 250 value 1.127304</span></span>
+<span><span class="co">#&gt; iter 260 value 1.121489</span></span>
+<span><span class="co">#&gt; iter 270 value 1.118144</span></span>
+<span><span class="co">#&gt; iter 280 value 1.113116</span></span>
+<span><span class="co">#&gt; iter 290 value 1.109477</span></span>
+<span><span class="co">#&gt; iter 300 value 1.104146</span></span>
+<span><span class="co">#&gt; iter 310 value 1.096284</span></span>
+<span><span class="co">#&gt; iter 320 value 1.093635</span></span>
+<span><span class="co">#&gt; iter 330 value 1.091332</span></span>
+<span><span class="co">#&gt; iter 340 value 1.090065</span></span>
+<span><span class="co">#&gt; iter 350 value 1.089239</span></span>
+<span><span class="co">#&gt; iter 360 value 1.088488</span></span>
+<span><span class="co">#&gt; iter 370 value 1.088024</span></span>
+<span><span class="co">#&gt; iter 380 value 1.087684</span></span>
+<span><span class="co">#&gt; iter 390 value 1.087383</span></span>
+<span><span class="co">#&gt; iter 400 value 1.087240</span></span>
+<span><span class="co">#&gt; iter 410 value 1.087149</span></span>
+<span><span class="co">#&gt; iter 420 value 1.087081</span></span>
+<span><span class="co">#&gt; iter 430 value 1.087052</span></span>
+<span><span class="co">#&gt; iter 440 value 1.087023</span></span>
+<span><span class="co">#&gt; iter 450 value 1.087006</span></span>
+<span><span class="co">#&gt; iter 460 value 1.086995</span></span>
+<span><span class="co">#&gt; iter 470 value 1.086992</span></span>
+<span><span class="co">#&gt; iter 480 value 1.086989</span></span>
+<span><span class="co">#&gt; iter 490 value 1.086983</span></span>
+<span><span class="co">#&gt; iter 500 value 1.086981</span></span>
+<span><span class="co">#&gt; iter 510 value 1.086980</span></span>
+<span><span class="co">#&gt; iter 520 value 1.086978</span></span>
+<span><span class="co">#&gt; final  value 1.086978 </span></span>
+<span><span class="co">#&gt; converged</span></span></code></pre></div>
+</div>
+<div id="visualización-del-clasificador" class="section level2" number="10.21">
+<h2>
+<span class="header-section-number">10.21</span> Visualización del clasificador<a class="anchor" aria-label="anchor" href="#visualizaci%C3%B3n-del-clasificador"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">NeuralNetTools</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/NeuralNetTools/man/plotnet.html">plotnet</a></span><span class="op">(</span><span class="va">supervivientes_train</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Neural_Net_files/figure-html/unnamed-chunk-36-1.png" width="672"></div>
+</div>
+<div id="lecturas-complementarias" class="section level2" number="10.22">
+<h2>
+<span class="header-section-number">10.22</span> Lecturas complementarias<a class="anchor" aria-label="anchor" href="#lecturas-complementarias"><i class="fas fa-link"></i></a>
+</h2>
+<div id="estilos-de-tablas" class="section level3" number="10.22.1">
+<h3>
+<span class="header-section-number">10.22.1</span> Estilos de Tablas<a class="anchor" aria-label="anchor" href="#estilos-de-tablas"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="https://cran-r--project-org.translate.goog/web/packages/kableExtra/vignettes/awesome_table_in_html.html?_x_tr_sl=en&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=tc#Table_Styles" class="uri">https://cran-r--project-org.translate.goog/web/packages/kableExtra/vignettes/awesome_table_in_html.html?_x_tr_sl=en&amp;_x_tr_tl=es&amp;_x_tr_hl=es&amp;_x_tr_pto=tc#Table_Styles</a></p>
+
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="algoritmo-del-vecino-m%C3%A1s-pr%C3%B3ximo.html"><span class="header-section-number">9</span> Algoritmo del vecino más próximo</a></div>
+<div class="next"><a href="clusterizaci%C3%B3n.html"><span class="header-section-number">11</span> Clusterización</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#redes-neuronales-artificiales"><span class="header-section-number">10</span> Redes Neuronales artificiales</a></li>
+<li><a class="nav-link" href="#bibliograf%C3%ADa-recomendada-2"><span class="header-section-number">10.1</span> Bibliografía recomendada</a></li>
+<li><a class="nav-link" href="#redes-neuronales-en-r-cran"><span class="header-section-number">10.2</span> Redes Neuronales en R-Cran</a></li>
+<li><a class="nav-link" href="#caso-de-estudio-cargar-de-bibliotecas"><span class="header-section-number">10.3</span> Caso de estudio: Cargar de bibliotecas</a></li>
+<li><a class="nav-link" href="#carga-de-datos"><span class="header-section-number">10.4</span> Carga de Datos</a></li>
+<li><a class="nav-link" href="#tratamiento-de-variables-categ%C3%B3ricas"><span class="header-section-number">10.5</span> Tratamiento de variables categóricas</a></li>
+<li><a class="nav-link" href="#histogramas-superpuestos"><span class="header-section-number">10.6</span> Histogramas superpuestos</a></li>
+<li><a class="nav-link" href="#cuadro-de-campos-categ%C3%B3ricos"><span class="header-section-number">10.7</span> Cuadro de campos categóricos</a></li>
+<li><a class="nav-link" href="#profit-versus-pa%C3%ADs"><span class="header-section-number">10.8</span> Profit versus País</a></li>
+<li><a class="nav-link" href="#visualizaci%C3%B3n-de-tablas"><span class="header-section-number">10.9</span> Visualización de Tablas</a></li>
+<li><a class="nav-link" href="#normailizaci%C3%B3n"><span class="header-section-number">10.10</span> Normailización</a></li>
+<li><a class="nav-link" href="#modelo-de-neural-net"><span class="header-section-number">10.11</span> Modelo de Neural Net</a></li>
+<li><a class="nav-link" href="#ploteo-de-la-red-neuronal"><span class="header-section-number">10.12</span> Ploteo de la red Neuronal</a></li>
+<li>
+<a class="nav-link" href="#ploteo-de-la-red-proporcional"><span class="header-section-number">10.13</span> Ploteo de la red proporcional</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#evaluaci%C3%B3n-de-la-performance-del-modelo"><span class="header-section-number">10.13.1</span> Evaluación de la performance del modelo</a></li></ul>
+</li>
+<li><a class="nav-link" href="#predicted-profit-vs-actual-profit-of-test-data."><span class="header-section-number">10.14</span> Predicted profit Vs Actual profit of test data.</a></li>
+<li><a class="nav-link" href="#desnormalizaci%C3%B3n-de-los-resultados"><span class="header-section-number">10.15</span> Desnormalización de los resultados</a></li>
+<li><a class="nav-link" href="#mejoramiento-de-la-performance-del-modelo"><span class="header-section-number">10.16</span> Mejoramiento de la performance del modelo</a></li>
+<li><a class="nav-link" href="#performance-del-modelo-mejorado"><span class="header-section-number">10.17</span> Performance del modelo mejorado</a></li>
+<li><a class="nav-link" href="#modelo-mejorado-kpi"><span class="header-section-number">10.18</span> Modelo Mejorado KPI</a></li>
+<li><a class="nav-link" href="#neural-net-clasificaci%C3%B3n"><span class="header-section-number">10.19</span> Neural Net Clasificación</a></li>
+<li><a class="nav-link" href="#muestreo"><span class="header-section-number">10.20</span> Muestreo</a></li>
+<li><a class="nav-link" href="#visualizaci%C3%B3n-del-clasificador"><span class="header-section-number">10.21</span> Visualización del clasificador</a></li>
+<li>
+<a class="nav-link" href="#lecturas-complementarias"><span class="header-section-number">10.22</span> Lecturas complementarias</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#estilos-de-tablas"><span class="header-section-number">10.22.1</span> Estilos de Tablas</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/05-Neural_Net.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/05-Neural_Net.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Analitica de Datos Industriales Segunda Edición</strong>" was written by Dr. Ing. Ricardo R. Palma. It was last built on 2025-10-22.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

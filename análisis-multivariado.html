@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Capítulo 6 Análisis Multivariado | Analitica de Datos Industriales Segunda Edición</title>
+<meta name="author" content="Dr. Ing. Ricardo R. Palma">
+<meta name="description" content="6.1 La Magia de R-cran Realizar un análisis multivariado con R-CRAN ofrece numerosas ventajas, que lo convierten en una herramienta muy popular en el ámbito de la estadística, la ciencia de datos...">
+<meta name="generator" content="bookdown 0.44 with bs4_book()">
+<meta property="og:title" content="Capítulo 6 Análisis Multivariado | Analitica de Datos Industriales Segunda Edición">
+<meta property="og:type" content="book">
+<meta property="og:description" content="6.1 La Magia de R-cran Realizar un análisis multivariado con R-CRAN ofrece numerosas ventajas, que lo convierten en una herramienta muy popular en el ámbito de la estadística, la ciencia de datos...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Capítulo 6 Análisis Multivariado | Analitica de Datos Industriales Segunda Edición">
+<meta name="twitter:description" content="6.1 La Magia de R-cran Realizar un análisis multivariado con R-CRAN ofrece numerosas ventajas, que lo convierten en una herramienta muy popular en el ámbito de la estadística, la ciencia de datos...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/scatterPlotMatrix-0.3/scatterPlotMatrix.css" rel="stylesheet">
+<script src="libs/scatterPlotMatrix-binding-0.3.0/scatterPlotMatrix.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Analitica de Datos Industriales Segunda Edición</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Acerca de este curso</a></li>
+<li><a class="" href="an%C3%A1lisis-exploratorio.html"><span class="header-section-number">1</span> Análisis Exploratorio</a></li>
+<li><a class="" href="identificaci%C3%B3n-de-valores-m%C3%ADnimos-y-m%C3%A1ximos-conteos-query.html"><span class="header-section-number">2</span> Identificación de valores mínimos y máximos, conteos (QUERY)</a></li>
+<li><a class="" href="ploteos-y-gr%C3%A1ficas.html"><span class="header-section-number">3</span> Ploteos y Gráficas</a></li>
+<li><a class="" href="estad%C3%ADsticos-univariados-normales.html"><span class="header-section-number">4</span> Estadísticos univariados normales</a></li>
+<li><a class="" href="datos-categ%C3%B3ricos.html"><span class="header-section-number">5</span> Datos Categóricos</a></li>
+<li><a class="active" href="an%C3%A1lisis-multivariado.html"><span class="header-section-number">6</span> Análisis Multivariado</a></li>
+<li><a class="" href="data_analitics.html"><span class="header-section-number">7</span> Data_Analitics</a></li>
+<li><a class="" href="patrones-de-asociaci%C3%B3n.html"><span class="header-section-number">8</span> Patrones de asociación</a></li>
+<li><a class="" href="algoritmo-del-vecino-m%C3%A1s-pr%C3%B3ximo.html"><span class="header-section-number">9</span> Algoritmo del vecino más próximo</a></li>
+<li><a class="" href="redes-neuronales-artificiales.html"><span class="header-section-number">10</span> Redes Neuronales artificiales</a></li>
+<li><a class="" href="clusterizaci%C3%B3n.html"><span class="header-section-number">11</span> Clusterización</a></li>
+<li><a class="" href="%C3%A1rboles-de-decisi%C3%B3n.html"><span class="header-section-number">12</span> Árboles de decisión</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="" href="bibliograf%C3%ADa.html">Bibliografía</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="análisis-multivariado" class="section level1" number="6">
+<h1>
+<span class="header-section-number">Capítulo 6</span> Análisis Multivariado<a class="anchor" aria-label="anchor" href="#an%C3%A1lisis-multivariado"><i class="fas fa-link"></i></a>
+</h1>
+<div id="la-magia-de-r-cran" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> La Magia de R-cran<a class="anchor" aria-label="anchor" href="#la-magia-de-r-cran"><i class="fas fa-link"></i></a>
+</h2>
+<p>Realizar un análisis multivariado con R-CRAN ofrece numerosas ventajas, que lo convierten en una herramienta muy popular en el ámbito de la estadística, la ciencia de datos y la investigación. A continuación, se detallan las principales:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Potencia y Flexibilidad:</strong></li>
+</ol>
+<p>Gran variedad de paquetes: R-CRAN cuenta con una enorme colección de paquetes (librerías) que extienden su funcionalidad. Para el análisis multivariado, existen paquetes especializados para técnicas como:</p>
+<p>Análisis de Componentes Principales (PCA)</p>
+<p>Análisis Factorial Exploratorio (EFA) y Confirmatorio (CFA)</p>
+<p>Análisis de Clúster (K-means, jerárquico)</p>
+<p>Modelos de Ecuaciones Estructurales (SEM)</p>
+<p>Análisis de Correspondencias Múltiples (MCA)</p>
+<p>Análisis Discriminante</p>
+<p>Y muchos más…</p>
+<p><strong>Capacidad de personalización:</strong> A diferencia de muchos programas de “apuntar y hacer clic”, R permite a los usuarios escribir su propio código, lo que brinda un control total sobre el análisis. Esto es ideal para resolver problemas específicos, crear funciones personalizadas y automatizar tareas repetitivas.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Naturaleza Gratuita y de Código Abierto:</strong></li>
+</ol>
+<p>Sin costo de licencia: R es un software de código abierto, lo que significa que es completamente gratuito. Esto lo hace accesible para estudiantes, investigadores, pequeñas empresas y cualquier persona que no pueda permitirse software comercial costoso.</p>
+<p>Comunidad activa y soporte: La gran comunidad de usuarios de R contribuye a la creación de nuevos paquetes, la documentación y la resolución de problemas. Puedes encontrar una gran cantidad de foros, blogs, tutoriales y recursos en línea para ayudarte en tu camino.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Reproducibilidad y Transparencia:</strong></li>
+</ol>
+<p>Scripting: Al trabajar con R, se escribe un script o código que documenta cada paso del análisis. Esto hace que el proceso sea reproducible, lo que es fundamental en la investigación científica. Cualquiera puede ejecutar el mismo código y obtener los mismos resultados, lo que aumenta la transparencia y la confianza en los hallazgos.</p>
+<p>Flujo de trabajo documentado: El código actúa como una bitácora del análisis. Esto facilita la colaboración con otros investigadores, la revisión de un proyecto y la identificación de posibles errores.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Visualización de Datos de Alta Calidad:</strong></li>
+</ol>
+<p>Gráficos avanzados: R es reconocido por su capacidad para crear visualizaciones de datos de gran calidad. Paquetes como ggplot2 permiten generar gráficos muy personalizables, informativos y estéticamente atractivos.</p>
+<p>Visualización de resultados multivariados: Para el análisis multivariado, la visualización es crucial. R facilita la creación de gráficos de dispersión, biplots, dendrogramas y otras representaciones visuales que ayudan a interpretar los resultados complejos.</p>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Integración con otros lenguajes y herramientas:</strong></li>
+</ol>
+<p>Interoperabilidad: R puede conectarse y trabajar con otros lenguajes de programación como Python, así como con bases de datos y diversas fuentes de datos (archivos de texto, CSV, Excel, etc.).</p>
+<p>Reportes automáticos: Se puede integrar R con herramientas como R Markdown para generar informes automáticos y dinámicos que combinan el código, los resultados del análisis y el texto explicativo.</p>
+</div>
+<div id="matrices-de-correlación" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Matrices de correlación<a class="anchor" aria-label="anchor" href="#matrices-de-correlaci%C3%B3n"><i class="fas fa-link"></i></a>
+</h2>
+<p>Una matriz de correlación multivariada es una tabla cuadrada y simétrica que muestra los coeficientes de correlación de Pearson (o de otro tipo) para cada par de variables en un conjunto de datos. En otras palabras, es una herramienta clave en el análisis multivariado que resume la fuerza y la dirección de la relación lineal entre múltiples variables simultáneamente.</p>
+<div id="interpretación" class="section level3" number="6.2.1">
+<h3>
+<span class="header-section-number">6.2.1</span> Interpretación<a class="anchor" aria-label="anchor" href="#interpretaci%C3%B3n"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Estructura: La matriz tiene el mismo número de filas y columnas que el número de variables que se están analizando.</p></li>
+<li><p>Diagonal principal: La diagonal principal de la matriz siempre contiene valores de 1. Esto se debe a que cada variable está perfectamente correlacionada consigo misma.</p></li>
+<li><p>Simetría: La matriz es simétrica. El valor de la correlación entre la variable A y la variable B es el mismo que entre la variable B y la variable A. Por lo tanto, la información en la parte superior e inferior de la diagonal es un espejo.</p></li>
+<li>
+<p>Coeficientes de correlación: Los valores que no están en la diagonal son los coeficientes de correlación entre los pares de variables. Estos valores oscilan entre -1 y 1.</p>
+<ul>
+<li><p>Valores cercanos a 1: Indican una correlación positiva fuerte. Cuando una variable aumenta, la otra también tiende a aumentar.</p></li>
+<li><p>Valores cercanos a -1: Indican una correlación negativa fuerte. Cuando una variable aumenta, la otra tiende a disminuir.</p></li>
+<li><p>Valores cercanos a 0: Indican que no existe una relación lineal fuerte entre las variables. Es importante recordar que esto no significa que no haya ninguna relación, sino que no hay una relación lineal.</p></li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-69-1.png" width="672"></div>
+<p>Notemos como el paradigma de objetos nos permite utilizar el comano plot que se adapta al objeto “matriz multivariada”.</p>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">#install.packages("corrplot")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/taiyun/corrplot">corrplot</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; corrplot 0.95 loaded</span></span>
+<span><span class="va">matrizCPS1985</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">[</span> ,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">matrizCPS1985</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-70-1.png" width="672"></div>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">palette</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"white"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html">heatmap</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">matrizCPS1985</span>, col <span class="op">=</span> <span class="va">palette</span>, symm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-71-1.png" width="672"></div>
+</div>
+</div>
+<div id="fumar-y-productividad" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Fumar y productividad<a class="anchor" aria-label="anchor" href="#fumar-y-productividad"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"CigarettesSW"</span><span class="op">)</span></span>
+<span><span class="va">datos_cigarros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">CigarettesSW</span><span class="op">[</span> , <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">datos_cigarros</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    96 obs. of  7 variables:</span></span>
+<span><span class="co">#&gt;  $ cpi       : num  1.08 1.08 1.08 1.08 1.08 ...</span></span>
+<span><span class="co">#&gt;  $ population: num  3973000 2327000 3184000 26444000 3209000 ...</span></span>
+<span><span class="co">#&gt;  $ packs     : num  116 129 105 100 113 ...</span></span>
+<span><span class="co">#&gt;  $ income    : num  4.60e+07 2.62e+07 4.40e+07 4.47e+08 4.95e+07 ...</span></span>
+<span><span class="co">#&gt;  $ tax       : num  32.5 37 31 26 31 ...</span></span>
+<span><span class="co">#&gt;  $ price     : num  102.2 101.5 108.6 107.8 94.3 ...</span></span>
+<span><span class="co">#&gt;  $ taxs      : num  33.3 37 36.2 32.1 31 ...</span></span></code></pre></div>
+<p>matriz de correlación</p>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">corelacion_cigarros</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">datos_cigarros</span><span class="op">)</span></span>
+<span><span class="va">corelacion_cigarros</span></span>
+<span><span class="co">#&gt;                    cpi  population      packs     income</span></span>
+<span><span class="co">#&gt; cpi         1.00000000  0.04758017 -0.4994643  0.2317893</span></span>
+<span><span class="co">#&gt; population  0.04758017  1.00000000 -0.2112834  0.9573113</span></span>
+<span><span class="co">#&gt; packs      -0.49946432 -0.21128337  1.0000000 -0.3317847</span></span>
+<span><span class="co">#&gt; income      0.23178932  0.95731126 -0.3317847  1.0000000</span></span>
+<span><span class="co">#&gt; tax         0.68571446  0.16598557 -0.6421176  0.3372751</span></span>
+<span><span class="co">#&gt; price       0.91165558  0.14586043 -0.6524732  0.3375339</span></span>
+<span><span class="co">#&gt; taxs        0.70412144  0.18891721 -0.6574167  0.3582307</span></span>
+<span><span class="co">#&gt;                   tax      price       taxs</span></span>
+<span><span class="co">#&gt; cpi         0.6857145  0.9116556  0.7041214</span></span>
+<span><span class="co">#&gt; population  0.1659856  0.1458604  0.1889172</span></span>
+<span><span class="co">#&gt; packs      -0.6421176 -0.6524732 -0.6574167</span></span>
+<span><span class="co">#&gt; income      0.3372751  0.3375339  0.3582307</span></span>
+<span><span class="co">#&gt; tax         1.0000000  0.8993727  0.9853330</span></span>
+<span><span class="co">#&gt; price       0.8993727  1.0000000  0.9203278</span></span>
+<span><span class="co">#&gt; taxs        0.9853330  0.9203278  1.0000000</span></span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'psych'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:car':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     logit</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/cor.plot.html">corPlot</a></span><span class="op">(</span><span class="va">corelacion_cigarros</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-74-1.png" width="672"></div>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/pairs.panels.html">pairs.panels</a></span><span class="op">(</span><span class="va">corelacion_cigarros</span>,</span>
+<span>             smooth <span class="op">=</span> <span class="cn">TRUE</span>,      <span class="co"># Si TRUE, dibuja ajuste suavizados de tipo loess</span></span>
+<span>             scale <span class="op">=</span> <span class="cn">FALSE</span>,      <span class="co"># Si TRUE, escala la fuente al grado de correlación</span></span>
+<span>             density <span class="op">=</span> <span class="cn">TRUE</span>,     <span class="co"># Si TRUE, añade histogramas y curvas de densidad</span></span>
+<span>             ellipses <span class="op">=</span> <span class="cn">TRUE</span>,    <span class="co"># Si TRUE, dibuja elipses</span></span>
+<span>             method <span class="op">=</span> <span class="st">"pearson"</span>, <span class="co"># Método de correlación (también "spearman" o "kendall")</span></span>
+<span>             pch <span class="op">=</span> <span class="fl">21</span>,           <span class="co"># Símbolo pch</span></span>
+<span>             lm <span class="op">=</span> <span class="cn">FALSE</span>,         <span class="co"># Si TRUE, dibuja un ajuste lineal en lugar de un ajuste LOESS</span></span>
+<span>             cor <span class="op">=</span> <span class="cn">TRUE</span>,         <span class="co"># Si TRUE, agrega correlaciones</span></span>
+<span>             jiggle <span class="op">=</span> <span class="cn">FALSE</span>,     <span class="co"># Si TRUE, se añade ruido a los datos</span></span>
+<span>             factor <span class="op">=</span> <span class="fl">2</span>,         <span class="co"># Nivel de ruido añadido a los datos</span></span>
+<span>             hist.col <span class="op">=</span> <span class="fl">4</span>,       <span class="co"># Color de los histogramas</span></span>
+<span>             stars <span class="op">=</span> <span class="cn">TRUE</span>,       <span class="co"># Si TRUE, agrega el nivel de significación con estrellas</span></span>
+<span>             ci <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>          <span class="co"># Si TRUE, añade intervalos de confianza a los ajustes</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-75-1.png" width="672"></div>
+</div>
+<div id="herramientas-exploratorias-semi-automáticas" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> Herramientas exploratorias semi automáticas<a class="anchor" aria-label="anchor" href="#herramientas-exploratorias-semi-autom%C3%A1ticas"><i class="fas fa-link"></i></a>
+</h2>
+<p>Dataset <em>esoph</em> tiene datos referidos a correlación entre consumo de alcohol y tabaco en forma conjunta con test por contraste (casos de control) y entre casos independientes y muestra selectiva en blanco.</p>
+<p>Utilizaremos la biblioteka <strong>skimr</strong></p>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/skimr/">skimr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">esoph</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning: 'xfun::attr()' is deprecated.</span></span>
+<span><span class="co">#&gt; Use 'xfun::attr2()' instead.</span></span>
+<span><span class="co">#&gt; See help("Deprecated")</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:unnamed-chunk-76">Table 6.1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">esoph</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">88</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">factor</td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Variable type: factor</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="15%">
+<col width="11%">
+<col width="15%">
+<col width="8%">
+<col width="10%">
+<col width="38%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">ordered</th>
+<th align="right">n_unique</th>
+<th align="left">top_counts</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">agegp</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">TRUE</td>
+<td align="right">6</td>
+<td align="left">45-: 16, 55-: 16, 25-: 15, 35-: 15</td>
+</tr>
+<tr class="even">
+<td align="left">alcgp</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">TRUE</td>
+<td align="right">4</td>
+<td align="left">0-3: 23, 40-: 23, 80-: 21, 120: 21</td>
+</tr>
+<tr class="odd">
+<td align="left">tobgp</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">TRUE</td>
+<td align="right">4</td>
+<td align="left">0-9: 24, 10-: 24, 20-: 20, 30+: 20</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Variable type: numeric</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="18%">
+<col width="13%">
+<col width="18%">
+<col width="6%">
+<col width="8%">
+<col width="4%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="6%">
+<col width="8%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ncases</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.27</td>
+<td align="right">2.75</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">17</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">ncontrols</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8.81</td>
+<td align="right">12.14</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">10</td>
+<td align="right">60</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="gráficos-especiales" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> Gráficos Especiales<a class="anchor" aria-label="anchor" href="#gr%C3%A1ficos-especiales"><i class="fas fa-link"></i></a>
+</h2>
+<p>Algunas funciones para dibujar algunos diagramas especiales: la función ‘bagplot’ traza un diagrama de bolsa, ‘faces’ traza caras de Chernoff, ‘iconplot’ traza una representación de una tabla de frecuencia o una matriz de datos, ‘plothulls’ traza cascos de un conjunto de datos bivariados, ‘plotsummary’ traza un resumen gráfico de un conjunto de datos, ‘puticon’ agrega iconos a un gráfico, ‘skyline.hist’ combina varios histogramas de un conjunto de datos unidimensional en un gráfico, las funciones ‘slider’ admiten algunos gráficos interactivos, ‘spin3R’ ayuda a inspeccionar una nube de puntos de 3 dim, ‘stem.leaf’ traza un gráfico de tallo y hoja, ‘stem.leaf.backback’ traza versiones consecutivas del gráfico de tallo y hoja.</p>
+<p>La biblioteca <strong>aplpack</strong> generará rostros según la familia de flores del dataset iris.
+Dada la enorme capacidad que nuestro cerebro tiene para percibir aún variaciones pequeñas entre rostros, esta técnica permite de un sólo vistazo indagar sobre un dataset completo.</p>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://www.uni-bielefeld.de/fakultaeten/wirtschaftswissenschaften/fakultaet/lehrende-ehemalige/pwolf/wolf_aplpack/index.xml">"aplpack"</a></span><span class="op">)</span></span>
+<span><span class="va">iris_sample</span><span class="op">&lt;-</span><span class="va">iris</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,size<span class="op">=</span><span class="fl">16</span>,replace<span class="op">=</span><span class="cn">F</span><span class="op">)</span>,<span class="op">]</span></span>
+<span></span>
+<span><span class="va">iris_sample</span></span>
+<span><span class="co">#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span><span class="co">#&gt; 39           4.4         3.0          1.3         0.2</span></span>
+<span><span class="co">#&gt; 90           5.5         2.5          4.0         1.3</span></span>
+<span><span class="co">#&gt; 136          7.7         3.0          6.1         2.3</span></span>
+<span><span class="co">#&gt; 54           5.5         2.3          4.0         1.3</span></span>
+<span><span class="co">#&gt; 62           5.9         3.0          4.2         1.5</span></span>
+<span><span class="co">#&gt; 31           4.8         3.1          1.6         0.2</span></span>
+<span><span class="co">#&gt; 106          7.6         3.0          6.6         2.1</span></span>
+<span><span class="co">#&gt; 150          5.9         3.0          5.1         1.8</span></span>
+<span><span class="co">#&gt; 45           5.1         3.8          1.9         0.4</span></span>
+<span><span class="co">#&gt; 134          6.3         2.8          5.1         1.5</span></span>
+<span><span class="co">#&gt; 79           6.0         2.9          4.5         1.5</span></span>
+<span><span class="co">#&gt; 78           6.7         3.0          5.0         1.7</span></span>
+<span><span class="co">#&gt; 96           5.7         3.0          4.2         1.2</span></span>
+<span><span class="co">#&gt; 3            4.7         3.2          1.3         0.2</span></span>
+<span><span class="co">#&gt; 61           5.0         2.0          3.5         1.0</span></span>
+<span><span class="co">#&gt; 65           5.6         2.9          3.6         1.3</span></span>
+<span><span class="co">#&gt;        Species</span></span>
+<span><span class="co">#&gt; 39      setosa</span></span>
+<span><span class="co">#&gt; 90  versicolor</span></span>
+<span><span class="co">#&gt; 136  virginica</span></span>
+<span><span class="co">#&gt; 54  versicolor</span></span>
+<span><span class="co">#&gt; 62  versicolor</span></span>
+<span><span class="co">#&gt; 31      setosa</span></span>
+<span><span class="co">#&gt; 106  virginica</span></span>
+<span><span class="co">#&gt; 150  virginica</span></span>
+<span><span class="co">#&gt; 45      setosa</span></span>
+<span><span class="co">#&gt; 134  virginica</span></span>
+<span><span class="co">#&gt; 79  versicolor</span></span>
+<span><span class="co">#&gt; 78  versicolor</span></span>
+<span><span class="co">#&gt; 96  versicolor</span></span>
+<span><span class="co">#&gt; 3       setosa</span></span>
+<span><span class="co">#&gt; 61  versicolor</span></span>
+<span><span class="co">#&gt; 65  versicolor</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/aplpack/man/faces.html">faces</a></span><span class="op">(</span><span class="va">iris_sample</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,face.type<span class="op">=</span><span class="fl">1</span>,labels<span class="op">=</span><span class="va">iris_sample</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-77-1.png" width="672"></div>
+<pre><code>#&gt; effect of variables:
+#&gt;  modified item       Var           
+#&gt;  "height of face   " "Sepal.Length"
+#&gt;  "width of face    " "Sepal.Width" 
+#&gt;  "structure of face" "Petal.Length"
+#&gt;  "height of mouth  " "Petal.Width" 
+#&gt;  "width of mouth   " "Sepal.Length"
+#&gt;  "smiling          " "Sepal.Width" 
+#&gt;  "height of eyes   " "Petal.Length"
+#&gt;  "width of eyes    " "Petal.Width" 
+#&gt;  "height of hair   " "Sepal.Length"
+#&gt;  "width of hair   "  "Sepal.Width" 
+#&gt;  "style of hair   "  "Petal.Length"
+#&gt;  "height of nose  "  "Petal.Width" 
+#&gt;  "width of nose   "  "Sepal.Length"
+#&gt;  "width of ear    "  "Sepal.Width" 
+#&gt;  "height of ear   "  "Petal.Length"</code></pre>
+</div>
+<div id="análisis-exploratŕio-automático" class="section level2" number="6.6">
+<h2>
+<span class="header-section-number">6.6</span> Análisis Exploratŕio Automático<a class="anchor" aria-label="anchor" href="#an%C3%A1lisis-explorat%C5%95io-autom%C3%A1tico"><i class="fas fa-link"></i></a>
+</h2>
+<div id="dataexplorer" class="section level3" number="6.6.1">
+<h3>
+<span class="header-section-number">6.6.1</span> DataExplorer<a class="anchor" aria-label="anchor" href="#dataexplorer"><i class="fas fa-link"></i></a>
+</h3>
+<p>El paquete <strong><em>DataExplorer()</em></strong> es capaz de tomar un dataframe y generarnos un informe completo en formato html mediante el comando <strong>create_report</strong>. Lamentablemente el informe es interactivo y no podemos incrustarlo en este artículo. Por ello te pedimos que ejecutes desde la consola.</p>
+<pre><code><a href="http://boxuancui.github.io/DataExplorer/">library(DataExplorer)
+create_report(mtcars)</a></code></pre>
+<p>Este generará un exahustivo análisis de la planilla oficial de sobrevivientes del Titanic, indicando sesgos varianzas, promedios, Existencias de NA, co-varianzas, etc.</p>
+</div>
+<div id="ggally" class="section level3" number="6.6.2">
+<h3>
+<span class="header-section-number">6.6.2</span> GGally<a class="anchor" aria-label="anchor" href="#ggally"><i class="fas fa-link"></i></a>
+</h3>
+<p>Otra herramienta muy utilizada es GGally, tiene una enorme cantidad de gráficos que se adaptan a data.frames categoricos , lógicos, numericos, etc.</p>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: ggplot2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'ggplot2'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:psych':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     %+%, alpha</span></span>
+<span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-78-1.png" width="672"></div>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggcorr.html">ggcorr</a></span><span class="op">(</span><span class="va">df</span>, palette <span class="op">=</span> <span class="st">"RdBu"</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-79-1.png" width="672"></div>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/therneau/survival">"survival"</a></span><span class="op">)</span></span>
+<span><span class="co"># Fit survival functions</span></span>
+<span><span class="va">surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html">survfit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">sex</span>, data <span class="op">=</span> <span class="va">lung</span><span class="op">)</span></span>
+<span><span class="co"># Plot survival curves</span></span>
+<span><span class="va">surv.p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggsurv.html">ggsurv</a></span><span class="op">(</span><span class="va">surv</span><span class="op">)</span></span>
+<span><span class="va">surv.p</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-80-1.png" width="672"></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="datos-categ%C3%B3ricos.html"><span class="header-section-number">5</span> Datos Categóricos</a></div>
+<div class="next"><a href="data_analitics.html"><span class="header-section-number">7</span> Data_Analitics</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#an%C3%A1lisis-multivariado"><span class="header-section-number">6</span> Análisis Multivariado</a></li>
+<li><a class="nav-link" href="#la-magia-de-r-cran"><span class="header-section-number">6.1</span> La Magia de R-cran</a></li>
+<li>
+<a class="nav-link" href="#matrices-de-correlaci%C3%B3n"><span class="header-section-number">6.2</span> Matrices de correlación</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#interpretaci%C3%B3n"><span class="header-section-number">6.2.1</span> Interpretación</a></li></ul>
+</li>
+<li><a class="nav-link" href="#fumar-y-productividad"><span class="header-section-number">6.3</span> Fumar y productividad</a></li>
+<li><a class="nav-link" href="#herramientas-exploratorias-semi-autom%C3%A1ticas"><span class="header-section-number">6.4</span> Herramientas exploratorias semi automáticas</a></li>
+<li><a class="nav-link" href="#gr%C3%A1ficos-especiales"><span class="header-section-number">6.5</span> Gráficos Especiales</a></li>
+<li>
+<a class="nav-link" href="#an%C3%A1lisis-explorat%C5%95io-autom%C3%A1tico"><span class="header-section-number">6.6</span> Análisis Exploratŕio Automático</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dataexplorer"><span class="header-section-number">6.6.1</span> DataExplorer</a></li>
+<li><a class="nav-link" href="#ggally"><span class="header-section-number">6.6.2</span> GGally</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/01-Ana_Exploratorio.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/01-Ana_Exploratorio.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Analitica de Datos Industriales Segunda Edición</strong>" was written by Dr. Ing. Ricardo R. Palma. It was last built on 2025-10-22.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

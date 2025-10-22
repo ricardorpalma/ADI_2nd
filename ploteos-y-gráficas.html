@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Capítulo 3 Ploteos y Gráficas | Analitica de Datos Industriales Segunda Edición</title>
+<meta name="author" content="Dr. Ing. Ricardo R. Palma">
+<meta name="description" content="La función clásica del paquete base par plotear es plot(). Ella se adapta automáticamente a la geometría del objeto (en este caso dataset) a graficar. plot(CPS1985$education) Podemos ordenar los...">
+<meta name="generator" content="bookdown 0.44 with bs4_book()">
+<meta property="og:title" content="Capítulo 3 Ploteos y Gráficas | Analitica de Datos Industriales Segunda Edición">
+<meta property="og:type" content="book">
+<meta property="og:description" content="La función clásica del paquete base par plotear es plot(). Ella se adapta automáticamente a la geometría del objeto (en este caso dataset) a graficar. plot(CPS1985$education) Podemos ordenar los...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Capítulo 3 Ploteos y Gráficas | Analitica de Datos Industriales Segunda Edición">
+<meta name="twitter:description" content="La función clásica del paquete base par plotear es plot(). Ella se adapta automáticamente a la geometría del objeto (en este caso dataset) a graficar. plot(CPS1985$education) Podemos ordenar los...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/scatterPlotMatrix-0.3/scatterPlotMatrix.css" rel="stylesheet">
+<script src="libs/scatterPlotMatrix-binding-0.3.0/scatterPlotMatrix.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Analitica de Datos Industriales Segunda Edición</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Acerca de este curso</a></li>
+<li><a class="" href="an%C3%A1lisis-exploratorio.html"><span class="header-section-number">1</span> Análisis Exploratorio</a></li>
+<li><a class="" href="identificaci%C3%B3n-de-valores-m%C3%ADnimos-y-m%C3%A1ximos-conteos-query.html"><span class="header-section-number">2</span> Identificación de valores mínimos y máximos, conteos (QUERY)</a></li>
+<li><a class="active" href="ploteos-y-gr%C3%A1ficas.html"><span class="header-section-number">3</span> Ploteos y Gráficas</a></li>
+<li><a class="" href="estad%C3%ADsticos-univariados-normales.html"><span class="header-section-number">4</span> Estadísticos univariados normales</a></li>
+<li><a class="" href="datos-categ%C3%B3ricos.html"><span class="header-section-number">5</span> Datos Categóricos</a></li>
+<li><a class="" href="an%C3%A1lisis-multivariado.html"><span class="header-section-number">6</span> Análisis Multivariado</a></li>
+<li><a class="" href="data_analitics.html"><span class="header-section-number">7</span> Data_Analitics</a></li>
+<li><a class="" href="patrones-de-asociaci%C3%B3n.html"><span class="header-section-number">8</span> Patrones de asociación</a></li>
+<li><a class="" href="algoritmo-del-vecino-m%C3%A1s-pr%C3%B3ximo.html"><span class="header-section-number">9</span> Algoritmo del vecino más próximo</a></li>
+<li><a class="" href="redes-neuronales-artificiales.html"><span class="header-section-number">10</span> Redes Neuronales artificiales</a></li>
+<li><a class="" href="clusterizaci%C3%B3n.html"><span class="header-section-number">11</span> Clusterización</a></li>
+<li><a class="" href="%C3%A1rboles-de-decisi%C3%B3n.html"><span class="header-section-number">12</span> Árboles de decisión</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="" href="bibliograf%C3%ADa.html">Bibliografía</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ploteos-y-gráficas" class="section level1" number="3">
+<h1>
+<span class="header-section-number">Capítulo 3</span> Ploteos y Gráficas<a class="anchor" aria-label="anchor" href="#ploteos-y-gr%C3%A1ficas"><i class="fas fa-link"></i></a>
+</h1>
+<p>La función clásica del paquete base par plotear es <strong>plot()</strong>. Ella se
+adapta automáticamente a la geometría del objeto (en este caso dataset)
+a graficar.</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-29-1.png" width="672"></div>
+<p>Podemos ordenar los datos para tener mayor claridad y etiquetar los ejes
+cartecianos, así como agrevar color y tipo de línea</p>
+<pre><code>consulta desde la consola ?plot()</code></pre>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span><span class="op">)</span>, main<span class="op">=</span> <span class="st">"Cuatrimestres de educación del personal"</span>, ylab<span class="op">=</span><span class="st">"Cuatrimestre"</span>, xlab<span class="op">=</span><span class="st">"Individuo (caso muestral)"</span>,col<span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-30-1.png" width="672"></div>
+<div id="gráficos-de-caja-y-bigote" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Gráficos de caja y bigote<a class="anchor" aria-label="anchor" href="#gr%C3%A1ficos-de-caja-y-bigote"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span>, col<span class="op">=</span><span class="st">"blue"</span>, main<span class="op">=</span><span class="st">"Gráficas para 1,2y3 Sigma con outilers - Nivel de educación"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
+<p>Si quieres ignorar (no contemplar) los outilers usa el parámetro
+“outline = FALSE”</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span>, outline <span class="op">=</span> <span class="cn">FALSE</span>  ,col<span class="op">=</span><span class="st">"green"</span>, main<span class="op">=</span><span class="st">"Gráficas para 1,2y3 Sigma sin outilers - Nivel de educación"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+<p>En este caso los valores que difieren en más de 3 sigma no son tenidos
+en cuenta para la media y el desvío estandard.</p>
+</div>
+<div id="histogramas" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Histogramas<a class="anchor" aria-label="anchor" href="#histogramas"><i class="fas fa-link"></i></a>
+</h2>
+<p>Histogramas dicotómicos</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span>,breaks <span class="op">=</span> <span class="fl">2</span>, main<span class="op">=</span><span class="st">"clasificador en dos submuestras de igual rango"</span>, ylab<span class="op">=</span><span class="st">"Frecuencai relativa o conteo"</span> <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-33-1.png" width="672"></div>
+<p>Clasificador en rangos</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span>, col<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-34-1.png" width="672"></div>
+<p>Histograma de 50 cajas</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span>,breaks <span class="op">=</span> <span class="fl">50</span>, main<span class="op">=</span><span class="st">"clasificador de 50 cajas"</span>, col<span class="op">=</span><span class="st">"pink"</span> <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-35-1.png" width="672"></div>
+</div>
+<div id="funciones-de-densidad" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Funciones de densidad<a class="anchor" aria-label="anchor" href="#funciones-de-densidad"><i class="fas fa-link"></i></a>
+</h2>
+<p>La función <strong>density()</strong> en R calcula la estimación de la densidad
+kernel de una variable numérica univariada, lo que permite visualizar la
+distribución de los datos a través de una curva continua en lugar de
+barras. Esta función genera un conjunto de pares de puntos (x, y) que
+representan la curva de densidad, la cual muestra la probabilidad de que
+los datos se encuentren en un determinado rango, y es útil para entender
+la forma y dispersión de una distribución.</p>
+<pre><code>En otras palabras ella estima la distribución de probabilidad:</code></pre>
+<p>Para una muestra de datos numéricos, density() estima cómo se
+distribuyen los datos.</p>
+<ul>
+<li>Genera una curva suave: A diferencia de un histograma, que usa
+barras, density() crea una curva suave y continua, facilitando la
+interpretación visual de los patrones. Produce puntos (x, y):</li>
+</ul>
+<p>La salida de la función es un objeto que contiene las coordenadas x e y
+de la curva de densidad estimada, permitiendo su graficación o análisis
+posterior.</p>
+<ul>
+<li>Utiliza estimación kernel:</li>
+</ul>
+<p>La función se basa en la técnica de estimación de densidad kernel, que
+calcula la densidad de probabilidad de la variable.</p>
+<p><strong>¿Para qué sirve?</strong></p>
+<ul>
+<li>Visualización de datos:</li>
+</ul>
+<p>Es una herramienta fundamental para crear gráficos de densidad, que
+ofrecen una representación fluida y continua de la distribución de una
+variable.</p>
+<ul>
+<li>Análisis de la forma de los datos:</li>
+</ul>
+<p>Permite observar la forma general de la distribución, como la presencia
+de picos (modas) o el sesgo.</p>
+<ul>
+<li>Comparación de distribuciones:</li>
+</ul>
+<p>Facilita la comparación visual de la distribución de diferentes grupos
+de datos cuando se grafican varias curvas de densidad en el mismo
+gráfico.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">densidad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">densidad</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt;  density.default(x = CPS1985$education)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Data: CPS1985$education (534 obs.);  Bandwidth 'bw' = 0.5738</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;        x                 y            </span></span>
+<span><span class="co">#&gt;  Min.   : 0.2786   Min.   :1.476e-05  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 5.1393   1st Qu.:2.171e-03  </span></span>
+<span><span class="co">#&gt;  Median :10.0000   Median :2.513e-02  </span></span>
+<span><span class="co">#&gt;  Mean   :10.0000   Mean   :5.138e-02  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:14.8607   3rd Qu.:7.301e-02  </span></span>
+<span><span class="co">#&gt;  Max.   :19.7214   Max.   :3.036e-01</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"violet"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-37-1.png" width="672"></div>
+</div>
+<div id="comparación-de-dos-kernels" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> comparación de dos kernels<a class="anchor" aria-label="anchor" href="#comparaci%C3%B3n-de-dos-kernels"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">AER</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">CPS1988</span><span class="op">)</span></span></code></pre></div>
+<p>Generación de Vectores a comparar</p>
+<p>utilizaremos la función <strong>lines</strong> para agregar líneas a una gáfico ya
+existente y la función <strong>legend</strong> para etiquetar las gráficas</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Genero vectores</span></span>
+<span><span class="va">Vector_85</span> <span class="op">&lt;-</span> <span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span></span>
+<span><span class="va">Vector_88</span> <span class="op">&lt;-</span> <span class="va">CPS1988</span><span class="op">$</span><span class="va">education</span></span>
+<span></span>
+<span><span class="co"># Cantidad de casos en las muestras</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Vector_85</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 534</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Vector_88</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 28155</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Gráfica primera función</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">Vector_88</span><span class="op">)</span>,col<span class="op">=</span><span class="st">"blue"</span>, main<span class="op">=</span><span class="st">"Graficas de Densidad Comparativa"</span>, ylab<span class="op">=</span><span class="st">"Densidad"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Gráfica segunda función</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">Vector_85</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"violet"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Caja de leyendas</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Vector 1988"</span>, <span class="st">"Vector 1985"</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"violet"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
+</div>
+<div id="alternativas" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Alternativas<a class="anchor" aria-label="anchor" href="#alternativas"><i class="fas fa-link"></i></a>
+</h2>
+<p>Como siempre en R, existen alternativas que perteneces a bibliotecas
+(libraries) que hacen trabajo más vistoso con menos código</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="co"># remotes::install_github("R-CoderDotCom/ridgeline@main")</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-coder.com/">ridgeline</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/ridgeline/man/ridgeline.html">ridgeline</a></span><span class="op">(</span><span class="va">chickwts</span><span class="op">$</span><span class="va">weight</span>, <span class="va">chickwts</span><span class="op">$</span><span class="va">feed</span>,</span>
+<span>          mode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Ana_Exploratorio_files/figure-html/unnamed-chunk-41-1.png" width="864"></div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="identificaci%C3%B3n-de-valores-m%C3%ADnimos-y-m%C3%A1ximos-conteos-query.html"><span class="header-section-number">2</span> Identificación de valores mínimos y máximos, conteos (QUERY)</a></div>
+<div class="next"><a href="estad%C3%ADsticos-univariados-normales.html"><span class="header-section-number">4</span> Estadísticos univariados normales</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ploteos-y-gr%C3%A1ficas"><span class="header-section-number">3</span> Ploteos y Gráficas</a></li>
+<li><a class="nav-link" href="#gr%C3%A1ficos-de-caja-y-bigote"><span class="header-section-number">3.1</span> Gráficos de caja y bigote</a></li>
+<li><a class="nav-link" href="#histogramas"><span class="header-section-number">3.2</span> Histogramas</a></li>
+<li><a class="nav-link" href="#funciones-de-densidad"><span class="header-section-number">3.3</span> Funciones de densidad</a></li>
+<li><a class="nav-link" href="#comparaci%C3%B3n-de-dos-kernels"><span class="header-section-number">3.4</span> comparación de dos kernels</a></li>
+<li><a class="nav-link" href="#alternativas"><span class="header-section-number">3.5</span> Alternativas</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/01-Ana_Exploratorio.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/01-Ana_Exploratorio.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Analitica de Datos Industriales Segunda Edición</strong>" was written by Dr. Ing. Ricardo R. Palma. It was last built on 2025-10-22.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

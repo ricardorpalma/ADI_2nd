@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Capítulo 1 Análisis Exploratorio | Analitica de Datos Industriales Segunda Edición</title>
+<meta name="author" content="Dr. Ing. Ricardo R. Palma">
+<meta name="description" content="1.1 Introducción El objetivo de realizar un análisis exploratorio consiste en examinar los datos en base a su distribución, características antes de realizar alguna técnica estadística. El...">
+<meta name="generator" content="bookdown 0.44 with bs4_book()">
+<meta property="og:title" content="Capítulo 1 Análisis Exploratorio | Analitica de Datos Industriales Segunda Edición">
+<meta property="og:type" content="book">
+<meta property="og:description" content="1.1 Introducción El objetivo de realizar un análisis exploratorio consiste en examinar los datos en base a su distribución, características antes de realizar alguna técnica estadística. El...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Capítulo 1 Análisis Exploratorio | Analitica de Datos Industriales Segunda Edición">
+<meta name="twitter:description" content="1.1 Introducción El objetivo de realizar un análisis exploratorio consiste en examinar los datos en base a su distribución, características antes de realizar alguna técnica estadística. El...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/scatterPlotMatrix-0.3/scatterPlotMatrix.css" rel="stylesheet">
+<script src="libs/scatterPlotMatrix-binding-0.3.0/scatterPlotMatrix.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Analitica de Datos Industriales Segunda Edición</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Acerca de este curso</a></li>
+<li><a class="active" href="an%C3%A1lisis-exploratorio.html"><span class="header-section-number">1</span> Análisis Exploratorio</a></li>
+<li><a class="" href="identificaci%C3%B3n-de-valores-m%C3%ADnimos-y-m%C3%A1ximos-conteos-query.html"><span class="header-section-number">2</span> Identificación de valores mínimos y máximos, conteos (QUERY)</a></li>
+<li><a class="" href="ploteos-y-gr%C3%A1ficas.html"><span class="header-section-number">3</span> Ploteos y Gráficas</a></li>
+<li><a class="" href="estad%C3%ADsticos-univariados-normales.html"><span class="header-section-number">4</span> Estadísticos univariados normales</a></li>
+<li><a class="" href="datos-categ%C3%B3ricos.html"><span class="header-section-number">5</span> Datos Categóricos</a></li>
+<li><a class="" href="an%C3%A1lisis-multivariado.html"><span class="header-section-number">6</span> Análisis Multivariado</a></li>
+<li><a class="" href="data_analitics.html"><span class="header-section-number">7</span> Data_Analitics</a></li>
+<li><a class="" href="patrones-de-asociaci%C3%B3n.html"><span class="header-section-number">8</span> Patrones de asociación</a></li>
+<li><a class="" href="algoritmo-del-vecino-m%C3%A1s-pr%C3%B3ximo.html"><span class="header-section-number">9</span> Algoritmo del vecino más próximo</a></li>
+<li><a class="" href="redes-neuronales-artificiales.html"><span class="header-section-number">10</span> Redes Neuronales artificiales</a></li>
+<li><a class="" href="clusterizaci%C3%B3n.html"><span class="header-section-number">11</span> Clusterización</a></li>
+<li><a class="" href="%C3%A1rboles-de-decisi%C3%B3n.html"><span class="header-section-number">12</span> Árboles de decisión</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">13</span> Random Forest</a></li>
+<li><a class="" href="bibliograf%C3%ADa.html">Bibliografía</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="análisis-exploratorio" class="section level1" number="1">
+<h1>
+<span class="header-section-number">Capítulo 1</span> Análisis Exploratorio<a class="anchor" aria-label="anchor" href="#an%C3%A1lisis-exploratorio"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introducción" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Introducción<a class="anchor" aria-label="anchor" href="#introducci%C3%B3n"><i class="fas fa-link"></i></a>
+</h2>
+<p>El objetivo de realizar un análisis exploratorio consiste en examinar los datos en base a su distribución, características antes de realizar alguna técnica estadística.</p>
+<p>El objetivo principal es entender los datos y sus variables antes de acometer algún tipo de análisis más detallado.</p>
+<p>Detectar fallas en el diseño de los datos o en la recolección y aplicado a datos univariantes o multivariantes.</p>
+<div class="float">
+<img src="images/fig1_ED.png" alt="Procesos asociados"><div class="figcaption">Procesos asociados</div>
+</div>
+<p>El proceso de obtención de información a partir de los datos involucra una serie de procesos asociados.</p>
+</div>
+<div id="premisas-industriales" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Premisas Industriales<a class="anchor" aria-label="anchor" href="#premisas-industriales"><i class="fas fa-link"></i></a>
+</h2>
+<p>Siempre que se aprende algo se avanza desde lo que conozco hacia lo que
+desconozco. Sea que estés en una actividad industrial, social o
+académica, una de las premisas para aprender implica soltar lo que se
+tiene y ha tenido por años como cierto o verdadero para pasar a trabajar
+como lo hacen los jueces y los abogados. No daremos nada por cierto
+hasta que veamos datos y pruebas que lo demuestren.</p>
+<p>El análisis exploratorio de datos será la herramienta que utilizaremos
+para comprobar nuestras conjeturas e hipótesis, pero esto requiere
+pasión por aprender. Ese avalente gesto de no dar nada por cierto es lo
+que algunos filósofos como Descartes nos proponen bajo la consigna de
+“la duda metódica” como única vía para llegas a la verdad (yo agregaría
+“sin morir en el intento”).</p>
+<p>En el terreno industrial existen muchos mitos o verdades reveladas. A
+modo de ejemplo citaría la mala interpretación que los economistas
+argentinos hicieron en la década del 80 del siglo XX respecto a las
+técnicas de manágement japonés y el paradigma de la calidad. Para un
+economista de entonces las ideas puestas en práctica sobre “inventario
+cero” sonaban a una cosa muy plausible, sobre todo a la hora de pagar
+impuestos sobre los activos. Créanme jamás vi tanta convulsión en las
+cadenas de suministros locales ni tantos quebrantos de empresas como en
+esa época.</p>
+<p>Como primer actividad realizaremos un análisis exploratorio de datos en
+R-Cran sin adentrarnos mucho en las estructuras y tipos de datos o sobre
+como importar datos de fuentes como SAP, hojas de cálculo e incluso la
+misma web con herramientas como <strong>curl</strong>.</p>
+<p>Sin lugar a dudas el recurso más preciado para cualquier sistema de
+manufactura o producción de servicios es su recurso humano. Algunos
+autores en los últimos 10 años han cambiado esta palabra elevando la
+importancia con el cambio de nombre de la gerencia que los administra
+pasando de Gerentes de Recursos Humanos a Gerencia de Gestión del
+Talento.</p>
+<p>Comenzaremos nuestro introducción al tema entonces con este tipo de
+información utilizadon un dataset que viene cargado en una de la
+bibliotecas (o paquetes) de R.</p>
+</div>
+<div id="kdd" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> KDD<a class="anchor" aria-label="anchor" href="#kdd"><i class="fas fa-link"></i></a>
+</h2>
+<p>Knowledge Discovery in Databases es un proceso orientado a la identificación de patrones y al descubrimientos de patrones nuevos mas entendibles.</p>
+<div class="float">
+<img src="images/fig2_ED.png" alt="Evaluación e Interpretación"><div class="figcaption">Evaluación e Interpretación</div>
+</div>
+<p>Knowledge Discovery implica la evaluación e interpretación de patrones y modelos para tomar decisiones con respecto a lo que constituye conocimiento y lo que no lo es. Por lo tanto, el KDD requiere de un amplio y profundo conocimiento sobre tu área de estudio.(Gentileza de MESRK Containers Statistics)</p>
+<p>KDD requiere un mayor conocimiento acerca del área de estudio que el <strong>Data Mining</strong>.</p>
+</div>
+<div id="comprension-del-dominio-de-estudio" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Comprension del dominio de estudio<a class="anchor" aria-label="anchor" href="#comprension-del-dominio-de-estudio"><i class="fas fa-link"></i></a>
+</h2>
+<p>Como en cualquier tipo de investigación, es fundamental tener muy claros los límites y objetivos de lo que pretendemos. Es muy fácil perder el rumbo en el océano infinito de datos a nuestra disposición.</p>
+<p>Desarrollo de un entendimiento sobre el dominio
+Descubrimiento de conocimiento previo que sea relevante
+Definición del objetivo del KDD
+En este paso es cuando reconocemos las fuentes de información más importantes y quienes tienen control sobre ellas. También es relevante incluir toda la metadata relacionada, dimensionar la cantidad de datos, y formatos.</p>
+<p>Se recomienda que toda la información más importante que se encuentre solamente en medios físicos sea digitalizada, previo a iniciar las actividades de KDD.</p>
+<p>El KDD se refiere al proceso general de descubrir conocimientos útiles a partir de datos, y la minería de datos se refiere a un paso particular en este proceso. La minería de datos es la aplicación de algoritmos específicos para extraer patrones a partir de los datos. La distinción entre el proceso KDD y el paso de minería de datos (dentro del proceso) es un punto central de este artículo. Los pasos adicionales en el proceso KDD, tales como preparación de datos, selección de datos, limpieza de datos, incorporación de conocimiento previo apropiado e interpretación apropiada de los resultados de la minería, son esenciales para asegurar que el conocimiento útil se derive de los datos. La aplicación ciega de métodos de minería de datos (correctamente criticados como dragado de datos en la literatura estadística) puede ser una actividad peligrosa, que fácilmente conduce al descubrimiento de patrones sin sentido e inválidos.</p>
+<p>KDD ha evolucionado y sigue evolucionando desde la intersección de campos de investigación como el aprendizaje de máquinas, reconocimiento de patrones, bases de datos, estadísticas, IA, adquisición de conocimientos para sistemas expertos, visualización de datos y computación de alto rendimiento. La meta unificadora es extraer conocimiento de alto nivel desde datos de bajo nivel en el contexto de grandes conjuntos de datos.</p>
+<p>El proceso KDD puede ser visto como una actividad multidisciplinaria que abarca técnicas fuera del alcance de cualquier disciplina en particular, como el aprendizaje automático o machine learning. En este contexto, existen oportunidades claras para que otros campos de IA (aparte del aprendizaje automático) contribuyan al KDD. El KDD pone un énfasis especial en encontrar patrones comprensibles que se pueden interpretar como conocimiento útil o interesante. Así, por ejemplo, las redes neuronales, aunque son una potente herramienta de modelado, son relativamente difíciles de entender en comparación con los árboles de decisión. El KDD también hace hincapié en las propiedades de escalado y robustez de los algoritmos de modelado para grandes conjuntos de datos ruidosos.</p>
+</div>
+<div id="limpieza-y-procesamiento-de-datos" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Limpieza y procesamiento de datos<a class="anchor" aria-label="anchor" href="#limpieza-y-procesamiento-de-datos"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los datasets disponibles en la actualidad usualmente están incompletos (valores de atributos faltantes), tienen ruido (errores y datos aislados o outliers), o presentan inconsistencias (discrepancias en los datos recolectados).</p>
+<p>Eliminación de ruido y datos aislados o outliers.
+Uso del conocimiento previo para eliminar las inconsistencias y los duplicados.
+Selección y uso de estrategias para manejar la información faltante en los datasets.
+Estos “datos sucios” pueden confundir el proceso de minería y conducir a resultados inválidos o poco confiables.</p>
+<p>El preprocesamiento y la limpieza tienen el objetivo de mejorar la calidad de los datos y los resultados de la minería. Recuerda que la implementación de análisis complejos y el minado de grandes cantidades de datos puede tomar mucho tiempo, así que lo que podamos hacer para acortar ese tiempo será siempre de provecho.</p>
+</div>
+<div id="minería-de-datos" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> Minería de datos<a class="anchor" aria-label="anchor" href="#miner%C3%ADa-de-datos"><i class="fas fa-link"></i></a>
+</h2>
+<p>La minería es una exploración. Nos adentramos en la inmensidad de los datos y descubrimos poco a poco los patrones o modelos presentes en ellos; las relaciones.</p>
+<div class="float">
+<img src="images/fig3_ED.png" alt="Algoritmos de exploración"><div class="figcaption">Algoritmos de exploración</div>
+</div>
+<p>Y en esta exploración, una de nuestras herramientas más útiles son los algoritmos.</p>
+<p>¿Qué es un algoritmo? Básicamente, un algoritmo es una serie de instrucciones o reglas establecidas en un programa informático que nos permiten llegar a un resultado o solución.</p>
+<p>En el caso de la minería de datos, un algoritmo nos permite procesar un set de datos para obtener nueva información sobre ese mismo dataset.</p>
+<p>En general, la minería de datos comprende tres pasos: la selección de la tarea, la selección del algoritmo (o algoritmos) y su uso.</p>
+<p>El algoritmo busca patrones y modelos que nos interesen, siguiendo sus reglas preestablecidas, que pueden incluir árboles de clasificación, modelos de regresión, clusters, modelos mixtos, entre otros.</p>
+<p>La mayoría de los métodos de minería de datos se basan en técnicas comprobadas de aprendizaje automático o machine learning, reconocimiento de patrones, y estadísticas: clasificación, agrupación, regresión, etc. La formación de diferentes algoritmos bajo cada uno de estos encabezados a menudo puede ser desconcertante para el analista de datos novato y también para el experto.</p>
+<p>Debe hacerse hincapié en que, de los muchos métodos de minería de datos anunciados en la literatura, en realidad sólo hay unas pocas técnicas fundamentales.</p>
+</div>
+<div id="interpretación-de-patrones-minados" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> Interpretación de patrones minados<a class="anchor" aria-label="anchor" href="#interpretaci%C3%B3n-de-patrones-minados"><i class="fas fa-link"></i></a>
+</h2>
+<p>Es importante que comprendamos la diferencia entre dos términos clave: patrones y modelos.</p>
+<p>Patrones: son estructuras locales que hacen declaraciones sólo sobre un espacio restringido por variables. Esto tiene aplicaciones importantes en detección de anomalías como la detección de faltas en procesos industriales o de fraudes en el sistema bancario.
+Modelos: son estructuras globales que hacen declaraciones sobre cualquier punto en el espacio de medición. Por ejemplo, los modelos pueden predecir el valor de alguna otra variable.
+En la etapa de interpretación, hallamos los patrones y modelos en los datos analizados.</p>
+<p>Los resultados deben presentarse en un formato entendible. Por esta razón las técnicas de visualización son importantes para que los resultados sean útiles, dado que los modelos matemáticos o descripciones en formato de texto pueden ser difíciles de interpretar para los usuarios finales.</p>
+<p>Desde este punto del proceso es posible regresar a cualquiera de los pasos anteriores.</p>
+</div>
+<div id="imputación-de-datos" class="section level2" number="1.8">
+<h2>
+<span class="header-section-number">1.8</span> Imputación de datos<a class="anchor" aria-label="anchor" href="#imputaci%C3%B3n-de-datos"><i class="fas fa-link"></i></a>
+</h2>
+<p>La falta de datos en el proceso de captura puede deberse a diversas situaciones que van desde:</p>
+<ul>
+<li>fatiga del informante</li>
+<li>rechazo a informar</li>
+<li>calidad de la muestra</li>
+<li>formación del encuestador</li>
+</ul>
+<p>Los valores NA (not available) no pueden ser comparados ni se puede realizar operaciones sobre ellos.</p>
+</div>
+<div id="detección-en-r" class="section level2" number="1.9">
+<h2>
+<span class="header-section-number">1.9</span> Detección en R<a class="anchor" aria-label="anchor" href="#detecci%C3%B3n-en-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>La elección de datos ausente se debe verificar previo a la realización de ciertas calculas para entender su resultado, que puede verse afectados por la aparición de datos nulos.</p>
+<p>Uno de los aspectos más interesantes de R-Cran es la facilidad que tienen para generar datasets en forma sensilla, lo que lo hace especialmente atractivo para desarrollar y entrenar modelos de simulación</p>
+<p>Veamos un ejemplo de generación de un dataset fincticio llamado <em>“valores</em> y comencemos ha hacer el análisis primero en forma manual.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Crear un set de datos de 50 datos ficticios con 5 valores con NA.</span></span>
+<span><span class="va">valores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">indices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">valores</span><span class="op">[</span><span class="va">indices</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="va">valores</span></span>
+<span><span class="co">#&gt;  [1]  7  9  5  4  1  8  9  8  7  5 NA  5  8  2  9  7  2  4</span></span>
+<span><span class="co">#&gt; [19]  7  8 NA  5  5 NA  2  6  2  5  4  7  9  4  9  2  8  3</span></span>
+<span><span class="co">#&gt; [37]  3  5  5  9  9 NA  4  9  8  8  8  3  2  9</span></span></code></pre></div>
+<p>Devuelve TRUE si el objeto contiene un valor Nulo o ausente. Se aplica a cada elemento del objeto.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">valores</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [10] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [19] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [28] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [37] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [46] FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<pre><code>  na.fail(objeto)</code></pre>
+<p>Se utiliza para detener la ejecución de u scrip o programa si el objeto contiene algún valor ausente.</p>
+<pre><code>any(is.na(objeto))</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">valores</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>Devolverá TRUE si existe al menos un valor ausente dentro de objeto.</p>
+<div id="eliminar-datos-ausentes" class="section level3" number="1.9.1">
+<h3>
+<span class="header-section-number">1.9.1</span> Eliminar datos ausentes<a class="anchor" aria-label="anchor" href="#eliminar-datos-ausentes"><i class="fas fa-link"></i></a>
+</h3>
+<p>La eliminación de datos ausentes es una medida que de be realizarse en forma previa a cualquier análisis posterior del conjunto de datos.</p>
+<pre><code>na.omit(objeto)</code></pre>
+<p>Elimina del objeto cualquier dato ausente existente</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">valores</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] 7 9 5 4 1 8 9 8 7 5 5 8 2 9 7 2 4 7 8 5 5 2 6 2 5 4 7 9</span></span>
+<span><span class="co">#&gt; [29] 4 9 2 8 3 3 5 5 9 9 4 9 8 8 8 3 2 9</span></span>
+<span><span class="co">#&gt; attr(,"na.action")</span></span>
+<span><span class="co">#&gt; [1] 11 21 24 42</span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "omit"</span></span></code></pre></div>
+<pre><code>complete.cases(objeto)</code></pre>
+<p>Se utiliza en dataframes y verifica que ninguna de las columnas de cada fila contenga valores NA. Devuelve un vector, con valor de TRUE en las filas sin valores ausente (completas) y FALSE en el resto. este vector puede utilizarse para seleccionar filas de interés.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html">complete.cases</a></span><span class="op">(</span><span class="va">valores</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span>
+<span><span class="co">#&gt; [10]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span>
+<span><span class="co">#&gt; [19]  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE</span></span>
+<span><span class="co">#&gt; [28]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span>
+<span><span class="co">#&gt; [37]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE</span></span>
+<span><span class="co">#&gt; [46]  TRUE  TRUE  TRUE  TRUE  TRUE</span></span></code></pre></div>
+<p>Existen una cantidad considerable de dataset de prueba en R-Cran que puedes utilizar para dar tus primeros pasos (e incluso en experimentos no tan básicos). Todos ellos aparecen en la bibliografía de estadística o tienen papers que explicna las técnicas de recolección. Es recomendable espolrar las fuentes que aparecen en las ayuda para que en caso de utilizarlo en tus artículos científicos puedas citar correctamente.</p>
+<p>Para poder verlos tipea en la consola</p>
+<pre><code><a href="https://rdrr.io/r/utils/data.html">data()</a></code></pre>
+<p>Recuerda que habitualmente cada biblioteca que cargas con <em>install.packages()</em> agrega otros datasets a esta colección
+Si quieres ver todos los datasets tipea:</p>
+<pre><code>  data(package = .packages(all.available = TRUE)</code></pre>
+<p>Usaremos el dataset de Calidad de Aire de la Ciudad de New York</p>
+<p>para visualizar el dataset tipea</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">airquality</span></span>
+<span><span class="co">#&gt;     Ozone Solar.R Wind Temp Month Day</span></span>
+<span><span class="co">#&gt; 1      41     190  7.4   67     5   1</span></span>
+<span><span class="co">#&gt; 2      36     118  8.0   72     5   2</span></span>
+<span><span class="co">#&gt; 3      12     149 12.6   74     5   3</span></span>
+<span><span class="co">#&gt; 4      18     313 11.5   62     5   4</span></span>
+<span><span class="co">#&gt; 5      NA      NA 14.3   56     5   5</span></span>
+<span><span class="co">#&gt; 6      28      NA 14.9   66     5   6</span></span>
+<span><span class="co">#&gt; 7      23     299  8.6   65     5   7</span></span>
+<span><span class="co">#&gt; 8      19      99 13.8   59     5   8</span></span>
+<span><span class="co">#&gt; 9       8      19 20.1   61     5   9</span></span>
+<span><span class="co">#&gt; 10     NA     194  8.6   69     5  10</span></span>
+<span><span class="co">#&gt; 11      7      NA  6.9   74     5  11</span></span>
+<span><span class="co">#&gt; 12     16     256  9.7   69     5  12</span></span>
+<span><span class="co">#&gt; 13     11     290  9.2   66     5  13</span></span>
+<span><span class="co">#&gt; 14     14     274 10.9   68     5  14</span></span>
+<span><span class="co">#&gt; 15     18      65 13.2   58     5  15</span></span>
+<span><span class="co">#&gt; 16     14     334 11.5   64     5  16</span></span>
+<span><span class="co">#&gt; 17     34     307 12.0   66     5  17</span></span>
+<span><span class="co">#&gt; 18      6      78 18.4   57     5  18</span></span>
+<span><span class="co">#&gt; 19     30     322 11.5   68     5  19</span></span>
+<span><span class="co">#&gt; 20     11      44  9.7   62     5  20</span></span>
+<span><span class="co">#&gt; 21      1       8  9.7   59     5  21</span></span>
+<span><span class="co">#&gt; 22     11     320 16.6   73     5  22</span></span>
+<span><span class="co">#&gt; 23      4      25  9.7   61     5  23</span></span>
+<span><span class="co">#&gt; 24     32      92 12.0   61     5  24</span></span>
+<span><span class="co">#&gt; 25     NA      66 16.6   57     5  25</span></span>
+<span><span class="co">#&gt; 26     NA     266 14.9   58     5  26</span></span>
+<span><span class="co">#&gt; 27     NA      NA  8.0   57     5  27</span></span>
+<span><span class="co">#&gt; 28     23      13 12.0   67     5  28</span></span>
+<span><span class="co">#&gt; 29     45     252 14.9   81     5  29</span></span>
+<span><span class="co">#&gt; 30    115     223  5.7   79     5  30</span></span>
+<span><span class="co">#&gt; 31     37     279  7.4   76     5  31</span></span>
+<span><span class="co">#&gt; 32     NA     286  8.6   78     6   1</span></span>
+<span><span class="co">#&gt; 33     NA     287  9.7   74     6   2</span></span>
+<span><span class="co">#&gt; 34     NA     242 16.1   67     6   3</span></span>
+<span><span class="co">#&gt; 35     NA     186  9.2   84     6   4</span></span>
+<span><span class="co">#&gt; 36     NA     220  8.6   85     6   5</span></span>
+<span><span class="co">#&gt; 37     NA     264 14.3   79     6   6</span></span>
+<span><span class="co">#&gt; 38     29     127  9.7   82     6   7</span></span>
+<span><span class="co">#&gt; 39     NA     273  6.9   87     6   8</span></span>
+<span><span class="co">#&gt; 40     71     291 13.8   90     6   9</span></span>
+<span><span class="co">#&gt; 41     39     323 11.5   87     6  10</span></span>
+<span><span class="co">#&gt; 42     NA     259 10.9   93     6  11</span></span>
+<span><span class="co">#&gt; 43     NA     250  9.2   92     6  12</span></span>
+<span><span class="co">#&gt; 44     23     148  8.0   82     6  13</span></span>
+<span><span class="co">#&gt; 45     NA     332 13.8   80     6  14</span></span>
+<span><span class="co">#&gt; 46     NA     322 11.5   79     6  15</span></span>
+<span><span class="co">#&gt; 47     21     191 14.9   77     6  16</span></span>
+<span><span class="co">#&gt; 48     37     284 20.7   72     6  17</span></span>
+<span><span class="co">#&gt; 49     20      37  9.2   65     6  18</span></span>
+<span><span class="co">#&gt; 50     12     120 11.5   73     6  19</span></span>
+<span><span class="co">#&gt; 51     13     137 10.3   76     6  20</span></span>
+<span><span class="co">#&gt; 52     NA     150  6.3   77     6  21</span></span>
+<span><span class="co">#&gt; 53     NA      59  1.7   76     6  22</span></span>
+<span><span class="co">#&gt; 54     NA      91  4.6   76     6  23</span></span>
+<span><span class="co">#&gt; 55     NA     250  6.3   76     6  24</span></span>
+<span><span class="co">#&gt; 56     NA     135  8.0   75     6  25</span></span>
+<span><span class="co">#&gt; 57     NA     127  8.0   78     6  26</span></span>
+<span><span class="co">#&gt; 58     NA      47 10.3   73     6  27</span></span>
+<span><span class="co">#&gt; 59     NA      98 11.5   80     6  28</span></span>
+<span><span class="co">#&gt; 60     NA      31 14.9   77     6  29</span></span>
+<span><span class="co">#&gt; 61     NA     138  8.0   83     6  30</span></span>
+<span><span class="co">#&gt; 62    135     269  4.1   84     7   1</span></span>
+<span><span class="co">#&gt; 63     49     248  9.2   85     7   2</span></span>
+<span><span class="co">#&gt; 64     32     236  9.2   81     7   3</span></span>
+<span><span class="co">#&gt; 65     NA     101 10.9   84     7   4</span></span>
+<span><span class="co">#&gt; 66     64     175  4.6   83     7   5</span></span>
+<span><span class="co">#&gt; 67     40     314 10.9   83     7   6</span></span>
+<span><span class="co">#&gt; 68     77     276  5.1   88     7   7</span></span>
+<span><span class="co">#&gt; 69     97     267  6.3   92     7   8</span></span>
+<span><span class="co">#&gt; 70     97     272  5.7   92     7   9</span></span>
+<span><span class="co">#&gt; 71     85     175  7.4   89     7  10</span></span>
+<span><span class="co">#&gt; 72     NA     139  8.6   82     7  11</span></span>
+<span><span class="co">#&gt; 73     10     264 14.3   73     7  12</span></span>
+<span><span class="co">#&gt; 74     27     175 14.9   81     7  13</span></span>
+<span><span class="co">#&gt; 75     NA     291 14.9   91     7  14</span></span>
+<span><span class="co">#&gt; 76      7      48 14.3   80     7  15</span></span>
+<span><span class="co">#&gt; 77     48     260  6.9   81     7  16</span></span>
+<span><span class="co">#&gt; 78     35     274 10.3   82     7  17</span></span>
+<span><span class="co">#&gt; 79     61     285  6.3   84     7  18</span></span>
+<span><span class="co">#&gt; 80     79     187  5.1   87     7  19</span></span>
+<span><span class="co">#&gt; 81     63     220 11.5   85     7  20</span></span>
+<span><span class="co">#&gt; 82     16       7  6.9   74     7  21</span></span>
+<span><span class="co">#&gt; 83     NA     258  9.7   81     7  22</span></span>
+<span><span class="co">#&gt; 84     NA     295 11.5   82     7  23</span></span>
+<span><span class="co">#&gt; 85     80     294  8.6   86     7  24</span></span>
+<span><span class="co">#&gt; 86    108     223  8.0   85     7  25</span></span>
+<span><span class="co">#&gt; 87     20      81  8.6   82     7  26</span></span>
+<span><span class="co">#&gt; 88     52      82 12.0   86     7  27</span></span>
+<span><span class="co">#&gt; 89     82     213  7.4   88     7  28</span></span>
+<span><span class="co">#&gt; 90     50     275  7.4   86     7  29</span></span>
+<span><span class="co">#&gt; 91     64     253  7.4   83     7  30</span></span>
+<span><span class="co">#&gt; 92     59     254  9.2   81     7  31</span></span>
+<span><span class="co">#&gt; 93     39      83  6.9   81     8   1</span></span>
+<span><span class="co">#&gt; 94      9      24 13.8   81     8   2</span></span>
+<span><span class="co">#&gt; 95     16      77  7.4   82     8   3</span></span>
+<span><span class="co">#&gt; 96     78      NA  6.9   86     8   4</span></span>
+<span><span class="co">#&gt; 97     35      NA  7.4   85     8   5</span></span>
+<span><span class="co">#&gt; 98     66      NA  4.6   87     8   6</span></span>
+<span><span class="co">#&gt; 99    122     255  4.0   89     8   7</span></span>
+<span><span class="co">#&gt; 100    89     229 10.3   90     8   8</span></span>
+<span><span class="co">#&gt; 101   110     207  8.0   90     8   9</span></span>
+<span><span class="co">#&gt; 102    NA     222  8.6   92     8  10</span></span>
+<span><span class="co">#&gt; 103    NA     137 11.5   86     8  11</span></span>
+<span><span class="co">#&gt; 104    44     192 11.5   86     8  12</span></span>
+<span><span class="co">#&gt; 105    28     273 11.5   82     8  13</span></span>
+<span><span class="co">#&gt; 106    65     157  9.7   80     8  14</span></span>
+<span><span class="co">#&gt; 107    NA      64 11.5   79     8  15</span></span>
+<span><span class="co">#&gt; 108    22      71 10.3   77     8  16</span></span>
+<span><span class="co">#&gt; 109    59      51  6.3   79     8  17</span></span>
+<span><span class="co">#&gt; 110    23     115  7.4   76     8  18</span></span>
+<span><span class="co">#&gt; 111    31     244 10.9   78     8  19</span></span>
+<span><span class="co">#&gt; 112    44     190 10.3   78     8  20</span></span>
+<span><span class="co">#&gt; 113    21     259 15.5   77     8  21</span></span>
+<span><span class="co">#&gt; 114     9      36 14.3   72     8  22</span></span>
+<span><span class="co">#&gt; 115    NA     255 12.6   75     8  23</span></span>
+<span><span class="co">#&gt; 116    45     212  9.7   79     8  24</span></span>
+<span><span class="co">#&gt; 117   168     238  3.4   81     8  25</span></span>
+<span><span class="co">#&gt; 118    73     215  8.0   86     8  26</span></span>
+<span><span class="co">#&gt; 119    NA     153  5.7   88     8  27</span></span>
+<span><span class="co">#&gt; 120    76     203  9.7   97     8  28</span></span>
+<span><span class="co">#&gt; 121   118     225  2.3   94     8  29</span></span>
+<span><span class="co">#&gt; 122    84     237  6.3   96     8  30</span></span>
+<span><span class="co">#&gt; 123    85     188  6.3   94     8  31</span></span>
+<span><span class="co">#&gt; 124    96     167  6.9   91     9   1</span></span>
+<span><span class="co">#&gt; 125    78     197  5.1   92     9   2</span></span>
+<span><span class="co">#&gt; 126    73     183  2.8   93     9   3</span></span>
+<span><span class="co">#&gt; 127    91     189  4.6   93     9   4</span></span>
+<span><span class="co">#&gt; 128    47      95  7.4   87     9   5</span></span>
+<span><span class="co">#&gt; 129    32      92 15.5   84     9   6</span></span>
+<span><span class="co">#&gt; 130    20     252 10.9   80     9   7</span></span>
+<span><span class="co">#&gt; 131    23     220 10.3   78     9   8</span></span>
+<span><span class="co">#&gt; 132    21     230 10.9   75     9   9</span></span>
+<span><span class="co">#&gt; 133    24     259  9.7   73     9  10</span></span>
+<span><span class="co">#&gt; 134    44     236 14.9   81     9  11</span></span>
+<span><span class="co">#&gt; 135    21     259 15.5   76     9  12</span></span>
+<span><span class="co">#&gt; 136    28     238  6.3   77     9  13</span></span>
+<span><span class="co">#&gt; 137     9      24 10.9   71     9  14</span></span>
+<span><span class="co">#&gt; 138    13     112 11.5   71     9  15</span></span>
+<span><span class="co">#&gt; 139    46     237  6.9   78     9  16</span></span>
+<span><span class="co">#&gt; 140    18     224 13.8   67     9  17</span></span>
+<span><span class="co">#&gt; 141    13      27 10.3   76     9  18</span></span>
+<span><span class="co">#&gt; 142    24     238 10.3   68     9  19</span></span>
+<span><span class="co">#&gt; 143    16     201  8.0   82     9  20</span></span>
+<span><span class="co">#&gt; 144    13     238 12.6   64     9  21</span></span>
+<span><span class="co">#&gt; 145    23      14  9.2   71     9  22</span></span>
+<span><span class="co">#&gt; 146    36     139 10.3   81     9  23</span></span>
+<span><span class="co">#&gt; 147     7      49 10.3   69     9  24</span></span>
+<span><span class="co">#&gt; 148    14      20 16.6   63     9  25</span></span>
+<span><span class="co">#&gt; 149    30     193  6.9   70     9  26</span></span>
+<span><span class="co">#&gt; 150    NA     145 13.2   77     9  27</span></span>
+<span><span class="co">#&gt; 151    14     191 14.3   75     9  28</span></span>
+<span><span class="co">#&gt; 152    18     131  8.0   76     9  29</span></span>
+<span><span class="co">#&gt; 153    20     223 11.5   68     9  30</span></span></code></pre></div>
+<p>También es posible ver esto más claramente con <strong>str</strong></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">airquality</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    153 obs. of  6 variables:</span></span>
+<span><span class="co">#&gt;  $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...</span></span>
+<span><span class="co">#&gt;  $ Solar.R: int  190 118 149 313 NA NA 299 99 19 194 ...</span></span>
+<span><span class="co">#&gt;  $ Wind   : num  7.4 8 12.6 11.5 14.3 14.9 8.6 13.8 20.1 8.6 ...</span></span>
+<span><span class="co">#&gt;  $ Temp   : int  67 72 74 62 56 66 65 59 61 69 ...</span></span>
+<span><span class="co">#&gt;  $ Month  : int  5 5 5 5 5 5 5 5 5 5 ...</span></span>
+<span><span class="co">#&gt;  $ Day    : int  1 2 3 4 5 6 7 8 9 10 ...</span></span></code></pre></div>
+<pre><code>  total de filas completas, sin valores nulos o ausentes</code></pre>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 111</span></span></code></pre></div>
+<pre><code>  total de filas completas, sin valores nulos o ausentes</code></pre>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">airquality</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html">complete.cases</a></span><span class="op">(</span><span class="va">airquality</span><span class="op">)</span>,<span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 111</span></span></code></pre></div>
+<p>Algunas funciones de R pueden funcionar con valores NA, ingresando un parámetro adicional de tipo na.rm o action</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">promedio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">valores</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">promedio</span></span>
+<span><span class="co">#&gt; [1] 5.826087</span></span></code></pre></div>
+</div>
+<div id="uso-de-na.action-com-parametro-de-function-modelo-lineal" class="section level3" number="1.9.2">
+<h3>
+<span class="header-section-number">1.9.2</span> Uso de na.action com parametro de function modelo lineal<a class="anchor" aria-label="anchor" href="#uso-de-na.action-com-parametro-de-function-modelo-lineal"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Solar.R</span> <span class="op">~</span> <span class="va">Temp</span>, <span class="va">airquality</span>, na.action<span class="op">=</span><span class="va">na.omit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = Solar.R ~ Temp, data = airquality, na.action = na.omit)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)         Temp  </span></span>
+<span><span class="co">#&gt;     -24.431        2.693</span></span></code></pre></div>
+</div>
+</div>
+<div id="limpieza-de-datos" class="section level2" number="1.10">
+<h2>
+<span class="header-section-number">1.10</span> Limpieza de datos<a class="anchor" aria-label="anchor" href="#limpieza-de-datos"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los valores ausentes son relativamente comunes en los set de datos y se deben a muchas causas: fallas en la captura de datos o en la transcripción de datos.</p>
+</div>
+<div id="missing-completely-at-random-mcar" class="section level2" number="1.11">
+<h2>
+<span class="header-section-number">1.11</span> Missing Completely at Random (MCAR)<a class="anchor" aria-label="anchor" href="#missing-completely-at-random-mcar"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los valores perdidos no se relacionan con las variables en el set de datos. Esta función elimina las filas que tengan 100% de datos perdidos.</p>
+<p>Como dice, los valores faltan aleatoriamente de su conjunto de datos. Los valores de los datos que faltan no se relacionan con ningún otro dato del conjunto de datos y no existe un patrón para los valores reales de los datos que faltan.</p>
+<p>Por ejemplo, cuando el estatus de fumador no se registra en un subconjunto aleatorio de pacientes. Esto es fácil de manejar, pero desafortunadamente, los datos casi nunca faltan completamente al azar.</p>
+</div>
+<div id="missing-at-random-mar" class="section level2" number="1.12">
+<h2>
+<span class="header-section-number">1.12</span> Missing at Random (MAR)<a class="anchor" aria-label="anchor" href="#missing-at-random-mar"><i class="fas fa-link"></i></a>
+</h2>
+<p>Esto es confuso y sería mejor decir que falta condicionalmente al azar. Aquí, los datos que faltan tienen una relación con otras variables en el set de datos. Sin embargo, los valores reales que faltan son aleatorios.</p>
+<p>Por ejemplo, el estatus de fumador no está documentado en pacientes mujeres porque el médico era demasiado tímido para preguntar.</p>
+</div>
+<div id="not-missing-at-random-nmar" class="section level2" number="1.13">
+<h2>
+<span class="header-section-number">1.13</span> Not Missing at Random (NMAR)<a class="anchor" aria-label="anchor" href="#not-missing-at-random-nmar"><i class="fas fa-link"></i></a>
+</h2>
+<p>El patrón de falta de datos está relacionado con otras variables del conjunto de datos, pero además, los valores de los datos que faltan no son aleatorios.</p>
+<p>Por ejemplo, cuando no se registra el estado de tabaquismo en los pacientes ingresados como una emergencia, que también son más propensos a tener peores resultados de la cirugía.</p>
+<p>La falta de datos no aleatorios es importante, puede alterar sus conclusiones y es la más difícil de diagnosticar y manejar. Sólo pueden detectarse recogiendo y examinando algunos de los datos que faltan. Esto es a menudo difícil o imposible de hacer.</p>
+<p>La forma de tratar los datos que faltan depende del tipo de falta.</p>
+</div>
+<div id="análisis-univariado" class="section level2" number="1.14">
+<h2>
+<span class="header-section-number">1.14</span> Análisis Univariado<a class="anchor" aria-label="anchor" href="#an%C3%A1lisis-univariado"><i class="fas fa-link"></i></a>
+</h2>
+<div id="qué-es-un-análisis-exploratorio" class="section level3" number="1.14.1">
+<h3>
+<span class="header-section-number">1.14.1</span> Qué es un análisis exploratorio<a class="anchor" aria-label="anchor" href="#qu%C3%A9-es-un-an%C3%A1lisis-exploratorio"><i class="fas fa-link"></i></a>
+</h3>
+<p>Un análisis exploratorio de datos, o <strong>AED</strong> (en inglés, <strong>EDA</strong> -
+Exploratory Data Analysis), es una <strong>fase inicial y fundamental</strong> en
+cualquier proceso de analítica de datos o proyecto de ciencia de datos.
+Su propósito no es generar conclusiones definitivas, sino <strong>comprender
+la estructura, las relaciones y las anomalías de los datos</strong> antes de
+aplicar modelos estadísticos o de aprendizaje automático más complejos.</p>
+<p>Piense en el AED como la fase de <strong><em>“investigación detectivesca”</em></strong> de
+sus datos. Es el momento de hacerse preguntas como:</p>
+<ul>
+<li>¿Cómo se distribuyen mis variables?</li>
+<li>¿Hay valores atípicos (outliers) que podrían sesgar mis resultados?</li>
+<li>¿Hay valores faltantes y, de ser así, cómo los manejo?</li>
+<li>¿Existen correlaciones o patrones interesantes entre las variables?</li>
+</ul>
+</div>
+<div id="por-qué-es-crucial" class="section level3" number="1.14.2">
+<h3>
+<span class="header-section-number">1.14.2</span> ¿Por qué es crucial?<a class="anchor" aria-label="anchor" href="#por-qu%C3%A9-es-crucial"><i class="fas fa-link"></i></a>
+</h3>
+<p>El AED es vital porque le permite <strong>identificar problemas y
+oportunidades</strong> que, de otra forma, podrían pasar desapercibidos. Por
+ejemplo, si un valor atípico representa un error de entrada de datos, no
+corregirlo podría llevar a que su modelo predictivo sea completamente
+inútil.</p>
+<p>En un contexto de posgrado, no solo esperamos que se sepa cómo realizar
+un AED, sino que entienda el <strong>razonamiento detrás de cada paso</strong>. Un
+AED bien ejecutado puede guiar la selección de la metodología analítica
+más apropiada y, en última instancia, <strong>mejorar la calidad y la
+fiabilidad de sus resultados</strong>.</p>
+</div>
+</div>
+<div id="técnicas-comunes-en-el-aed" class="section level2" number="1.15">
+<h2>
+<span class="header-section-number">1.15</span> Técnicas comunes en el AED<a class="anchor" aria-label="anchor" href="#t%C3%A9cnicas-comunes-en-el-aed"><i class="fas fa-link"></i></a>
+</h2>
+<p>Para llevar a cabo un AED, se utilizan diversas técnicas, que se pueden
+clasificar en dos grandes grupos:</p>
+<ul>
+<li><p><strong>Paciencia y relfexión</strong>: AED no es preparen, fuego, apunten; sino
+todo lo contrario. Es importante que se sepa que este análisis
+probablemente no te de respuestas. En su lugar te conforntará con
+nuevas preguntas que te llevarán a la causa raíz del problema.</p></li>
+<li><p><strong>Técnicas Visuales:</strong> Se utilizan gráficos para inspeccionar los
+datos. Algunos ejemplos incluyen:</p></li>
+<li><p><strong>Histogramas:</strong> Para ver la distribución de una variable numérica.</p></li>
+<li><p><strong>Diagramas de caja (Box plots):</strong> Para identificar la dispersión,
+la mediana y los posibles valores atípicos.</p></li>
+<li><p><strong>Diagramas de dispersión (Scatter plots):</strong> Para visualizar la
+relación entre dos variables.</p></li>
+<li><p><strong>Mapas de calor (Heatmaps):</strong> Para visualizar correlaciones entre
+múltiples variables.</p></li>
+<li><p><strong>Técnicas Numéricas/Estadísticas:</strong> Se utilizan resúmenes numéricos
+para describir los datos. Esto incluye:</p></li>
+<li><p><strong>Estadísticas descriptivas:</strong> Calcular la media, mediana, moda,
+desviación estándar y rango.</p></li>
+<li><p><strong>Matrices de correlación:</strong> Para cuantificar la fuerza de la
+relación entre variables.</p></li>
+<li><p><strong>Tablas de frecuencia:</strong> Para contar la ocurrencia de cada
+categoría en una variable cualitativa.</p></li>
+</ul>
+<p>En resumen, el AED es la <strong>primera conversación</strong> que tiene con sus
+datos. Es una etapa iterativa y flexible que le permite entender a fondo
+lo que tiene entre manos, <strong>formular hipótesis</strong> y <strong>preparar el
+camino</strong> para el análisis formal que vendrá después. Es la base de un
+trabajo de investigación o de un proyecto de ciencia de datos serio y
+robusto.</p>
+</div>
+<div id="insatalar-paquetes-y-datasets" class="section level2" number="1.16">
+<h2>
+<span class="header-section-number">1.16</span> Insatalar Paquetes y Datasets<a class="anchor" aria-label="anchor" href="#insatalar-paquetes-y-datasets"><i class="fas fa-link"></i></a>
+</h2>
+<p>Es lo rpimero que se tiene que hacer, contar con un dataset cargado en
+el memoria o área de trabajo de R. Lo más importante es conocer y
+revalidar los datos.</p>
+<p>Uno de lo paquetes que podemos utilizar es AER , que tienen cientos de
+datasets muy conocidos en conometría, algunos de ellos preferidos como
+consutores en economía industrial tales como.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Bernardo Kosakoff and Andrés López, &lt;span&gt;“Am&lt;span&gt;é&lt;/span&gt;rica Latina y Las Cadenas Globales de Valor: Debilidades y Potencialidades.”&lt;/span&gt; &lt;em&gt;Journal of Globalization, Competitiveness and Governability&lt;/em&gt; 2, no. 1 (2008).&lt;/p&gt;"><sup>1</sup></a></span></p>
+<p>Recuerda que antes de poder utilizar un paquete en R, debes descargarlo
+utilizando:</p>
+<pre><code>-&gt; Tools -&gt; install.packeges y elegir en el cuadro de diálogo.</code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">AER</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: car</span></span>
+<span><span class="co">#&gt; Loading required package: carData</span></span>
+<span><span class="co">#&gt; Loading required package: lmtest</span></span>
+<span><span class="co">#&gt; Loading required package: zoo</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'zoo'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     as.Date, as.Date.numeric</span></span>
+<span><span class="co">#&gt; Loading required package: sandwich</span></span>
+<span><span class="co">#&gt; Loading required package: survival</span></span></code></pre></div>
+<p>Biblioteca AER<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Christian Kleiber and Achim Zeileis, &lt;em&gt;Applied Econometrics with &lt;span&gt;R&lt;/span&gt;&lt;/em&gt; (Springer-Verlag, 2008), &lt;a href="https://doi.org/10.1007/978-0-387-77318-6"&gt;https://doi.org/10.1007/978-0-387-77318-6&lt;/a&gt;.&lt;/p&gt;'><sup>2</sup></a></span></p>
+<div id="listado-de-datasets" class="section level3" number="1.16.1">
+<h3>
+<span class="header-section-number">1.16.1</span> Listado de Datasets<a class="anchor" aria-label="anchor" href="#listado-de-datasets"><i class="fas fa-link"></i></a>
+</h3>
+<p>Para visualizar los datasets que tiene incluidos <strong>AER</strong> usamos el
+siguiente código.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"AER"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>nota las comillas dobles en el nombre del paquete. verás la salida en la consola de RStudio</code></pre>
+<p>No verás el detalle en RMarkdown</p>
+<p>Vamos a uilizar <strong>CPS1985</strong> son parte de AER y haremos algunos pasos
+para explorarlos.</p>
+<p>Observa que hay una tabla igual pero con los datos de 1988</p>
+</div>
+<div id="visualización-de-las-estructura-del-dataset" class="section level3" number="1.16.2">
+<h3>
+<span class="header-section-number">1.16.2</span> Visualización de las estructura del dataset<a class="anchor" aria-label="anchor" href="#visualizaci%C3%B3n-de-las-estructura-del-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Para poder utilizarlo debemos invocar al datset y podrás ver parte de su
+mínima expresión de datos en la ventana superior derecha de R-Studio.
+Utilizar</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">)</span></span></code></pre></div>
+<p>Esto crea una variable que se llama igual que el datset que tiene 534
+instancias o casos observados en una estructura de 11 columnas.</p>
+<p>Para explorar la cabecera de datos utilizar</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       wage education experience age ethnicity region gender</span></span>
+<span><span class="co">#&gt; 1     5.10         8         21  35  hispanic  other female</span></span>
+<span><span class="co">#&gt; 1100  4.95         9         42  57      cauc  other female</span></span>
+<span><span class="co">#&gt; 2     6.67        12          1  19      cauc  other   male</span></span>
+<span><span class="co">#&gt; 3     4.00        12          4  22      cauc  other   male</span></span>
+<span><span class="co">#&gt; 4     7.50        12         17  35      cauc  other   male</span></span>
+<span><span class="co">#&gt; 5    13.07        13          9  28      cauc  other   male</span></span>
+<span><span class="co">#&gt;      occupation        sector union married</span></span>
+<span><span class="co">#&gt; 1        worker manufacturing    no     yes</span></span>
+<span><span class="co">#&gt; 1100     worker manufacturing    no     yes</span></span>
+<span><span class="co">#&gt; 2        worker manufacturing    no      no</span></span>
+<span><span class="co">#&gt; 3        worker         other    no      no</span></span>
+<span><span class="co">#&gt; 4        worker         other    no     yes</span></span>
+<span><span class="co">#&gt; 5        worker         other   yes      no</span></span></code></pre></div>
+<p>Para ver los datos finales de la tabla utilizar:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      wage education experience age ethnicity region gender</span></span>
+<span><span class="co">#&gt; 528 11.79        16          6  28      cauc  other female</span></span>
+<span><span class="co">#&gt; 529 11.36        18          5  29      cauc  other   male</span></span>
+<span><span class="co">#&gt; 530  6.10        12         33  51     other  other female</span></span>
+<span><span class="co">#&gt; 531 23.25        17         25  48     other  other female</span></span>
+<span><span class="co">#&gt; 532 19.88        12         13  31      cauc  south   male</span></span>
+<span><span class="co">#&gt; 533 15.38        16         33  55      cauc  other   male</span></span>
+<span><span class="co">#&gt;     occupation        sector union married</span></span>
+<span><span class="co">#&gt; 528  technical         other   yes      no</span></span>
+<span><span class="co">#&gt; 529  technical         other    no      no</span></span>
+<span><span class="co">#&gt; 530  technical         other    no     yes</span></span>
+<span><span class="co">#&gt; 531  technical         other   yes     yes</span></span>
+<span><span class="co">#&gt; 532  technical         other   yes     yes</span></span>
+<span><span class="co">#&gt; 533  technical manufacturing    no     yes</span></span></code></pre></div>
+</div>
+<div id="exploración-de-la-clase" class="section level3" number="1.16.3">
+<h3>
+<span class="header-section-number">1.16.3</span> Exploración de la clase<a class="anchor" aria-label="anchor" href="#exploraci%C3%B3n-de-la-clase"><i class="fas fa-link"></i></a>
+</h3>
+<p>Como R es un lenguaje orientado a objetos, opera con el concepto de
+clases. Si no conoces que es esto, simplemene observa la información que
+obtienes del comando <strong>str</strong>.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    534 obs. of  11 variables:</span></span>
+<span><span class="co">#&gt;  $ wage      : num  5.1 4.95 6.67 4 7.5 ...</span></span>
+<span><span class="co">#&gt;  $ education : num  8 9 12 12 12 13 10 12 16 12 ...</span></span>
+<span><span class="co">#&gt;  $ experience: num  21 42 1 4 17 9 27 9 11 9 ...</span></span>
+<span><span class="co">#&gt;  $ age       : num  35 57 19 22 35 28 43 27 33 27 ...</span></span>
+<span><span class="co">#&gt;  $ ethnicity : Factor w/ 3 levels "cauc","hispanic",..: 2 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ region    : Factor w/ 2 levels "south","other": 2 2 2 2 2 2 1 2 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ gender    : Factor w/ 2 levels "male","female": 2 2 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ occupation: Factor w/ 6 levels "worker","technical",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ sector    : Factor w/ 3 levels "manufacturing",..: 1 1 1 3 3 3 3 3 1 3 ...</span></span>
+<span><span class="co">#&gt;  $ union     : Factor w/ 2 levels "no","yes": 1 1 1 1 1 2 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ married   : Factor w/ 2 levels "no","yes": 2 2 1 1 2 1 1 1 2 1 ...</span></span></code></pre></div>
+<p>Ahora nos queda más claro que los datos que nos ofrecía <em>data()</em> habla
+sobre:</p>
+<pre><code>CPS1985  Determinants of Wages Data (CPS 1985)</code></pre>
+<p>Sobre una columna llamada Salarios (WAGES) y como podemos explicarla en
+función de los datos vinculados en otras columna.</p>
+<p>A la columna Wages se la llama columnas de etiquetas del dataset y es
+vital para hacer más tarde aprendizaje supervisado de máquina <strong>machine
+learning</strong>.</p>
+<p>Vemos también que el dataset tiene columnas que son de tipo <strong>numérico</strong>
+y <strong>alfabético</strong>, pero existen además otras que se denominan de tipo
+<strong>categórico</strong> con instancias bien explicadas.</p>
+<p>Existen además otros tipos tales como <strong>binarias</strong> y otras que veremos
+más adelante.</p>
+</div>
+</div>
+<div id="acceso-a-datos-individuales-filas-y-columnas" class="section level2" number="1.17">
+<h2>
+<span class="header-section-number">1.17</span> Acceso a datos individuales, filas y columnas<a class="anchor" aria-label="anchor" href="#acceso-a-datos-individuales-filas-y-columnas"><i class="fas fa-link"></i></a>
+</h2>
+<p>Veamos la columna de educación</p>
+<p>Examinemos la clase</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span></code></pre></div>
+<p>Las sintaxis <strong>nombre de tabla</strong> $ <strong>nombre de columna</strong> nos muestra
+los valores</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span></span>
+<span><span class="co">#&gt;   [1]  8  9 12 12 12 13 10 12 16 12 12 12  8  9  9 12  7 12</span></span>
+<span><span class="co">#&gt;  [19] 11 12 12  7 12 11 12  6 12 10 12 12 14 12  8 17 12 12</span></span>
+<span><span class="co">#&gt;  [37] 12 12 12 14 12 14 12  9 13  7 16 10  8 12 12 16 12 12</span></span>
+<span><span class="co">#&gt;  [55] 13 12 13 10 12 12 11 12  3 12 12 10 12 12 12 10 11 14</span></span>
+<span><span class="co">#&gt;  [73] 10  8  8  6 11 12 12 12 14 12 10 16 13 12 11 12 12 11</span></span>
+<span><span class="co">#&gt;  [91] 12 12 12 12 12 12 15 12 12 13 11 10 12 12 14 12 14  5</span></span>
+<span><span class="co">#&gt; [109] 12  8 13 12 12 12 11 16 11 12  8 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [127]  9 13 12 12 12 12 12 14  9 10 12  7  9 12 12 12 11 11</span></span>
+<span><span class="co">#&gt; [145] 10 12 12 12 12 13  6 14 12 14 12 12 16 14 14 12 12 13</span></span>
+<span><span class="co">#&gt; [163] 17 12 14 16 16 15 17 12 14 12 16 12 14 16 18 15 12 12</span></span>
+<span><span class="co">#&gt; [181] 18 16 18 16 16 16 17 12 14 18 12 12 12 18 10 16 16 16</span></span>
+<span><span class="co">#&gt; [199] 13 12 14 16 17 12 16 12 15 13 14 16 18 13 12 18 14 14</span></span>
+<span><span class="co">#&gt; [217] 12 12 12 16 12 11 12 14 12 16 16 11 13 12 14 14 12 12</span></span>
+<span><span class="co">#&gt; [235] 13 14 14 12 14 12 12 12 14 12 12 15 12 13 17 14 13 16</span></span>
+<span><span class="co">#&gt; [253] 12 12 16 16 13 14 18 14 12 12 12 12 12 11 16 12 12 12</span></span>
+<span><span class="co">#&gt; [271] 12 18 11 12 16 13 16 13 12 12 12 12 12 13 14 14 12 12</span></span>
+<span><span class="co">#&gt; [289] 17 16 12 12 13 12 13 12 12 14 12 12 12 12 12 13 12  9</span></span>
+<span><span class="co">#&gt; [307] 13 12 13 12 13 12 13 16 12 12 12 12 12 12 12 17 14 12</span></span>
+<span><span class="co">#&gt; [325] 14 15 12 12 11 12 12 16 13 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [343] 12 17 14 12  4 14  8 15  2  8 11 10  8  9 12  8 14 12</span></span>
+<span><span class="co">#&gt; [361] 12 16 13 16 14 12 11 13 12 10  8 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [379] 12 13 14 12 12 11 11 12 12 12 10 12 12 12 14 14 12 13</span></span>
+<span><span class="co">#&gt; [397] 12 13 12 12 10 12 14 11 11  8 16 10 16 14 14 11 12  9</span></span>
+<span><span class="co">#&gt; [415] 11 13 14 12 14 12 12 12 12 11 12  8  9  7 11 13 18 17</span></span>
+<span><span class="co">#&gt; [433] 16 14 12 18 18 17 13 16 14 15 18 16 16 18 16 17 16 17</span></span>
+<span><span class="co">#&gt; [451] 15 18 17 16 18 18 14 16 18 18 16 12 16 16 16 12 12 12</span></span>
+<span><span class="co">#&gt; [469] 18 12 16 15 18 16 18 16 12 18 12 16 14 18 16 18 17 18</span></span>
+<span><span class="co">#&gt; [487] 14 14 16 16 14 17 16 16 16 15 18 17 16 18 17 12 17 12</span></span>
+<span><span class="co">#&gt; [505] 17 16 16 18 16 16 17 16 18 12 16 14 16 12 14 16 17 16</span></span>
+<span><span class="co">#&gt; [523] 16 17  9 15 15 12 16 18 12 17 12 16</span></span></code></pre></div>
+<div id="datos-ordenados" class="section level3" number="1.17.1">
+<h3>
+<span class="header-section-number">1.17.1</span> Datos ordenados<a class="anchor" aria-label="anchor" href="#datos-ordenados"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">CPS1985</span><span class="op">$</span><span class="va">education</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [1]  2  3  4  5  6  6  6  7  7  7  7  7  8  8  8  8  8  8</span></span>
+<span><span class="co">#&gt;  [19]  8  8  8  8  8  8  8  8  8  9  9  9  9  9  9  9  9  9</span></span>
+<span><span class="co">#&gt;  [37]  9  9  9 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10</span></span>
+<span><span class="co">#&gt;  [55] 10 10 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11</span></span>
+<span><span class="co">#&gt;  [73] 11 11 11 11 11 11 11 11 11 11 11 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt;  [91] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [109] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [127] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [145] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [163] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [181] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [199] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [217] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [235] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [253] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [271] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12</span></span>
+<span><span class="co">#&gt; [289] 12 12 12 12 12 12 12 12 12 12 12 12 12 12 13 13 13 13</span></span>
+<span><span class="co">#&gt; [307] 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13</span></span>
+<span><span class="co">#&gt; [325] 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 14 14 14</span></span>
+<span><span class="co">#&gt; [343] 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14</span></span>
+<span><span class="co">#&gt; [361] 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14</span></span>
+<span><span class="co">#&gt; [379] 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 15</span></span>
+<span><span class="co">#&gt; [397] 15 15 15 15 15 15 15 15 15 15 15 15 16 16 16 16 16 16</span></span>
+<span><span class="co">#&gt; [415] 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16</span></span>
+<span><span class="co">#&gt; [433] 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16</span></span>
+<span><span class="co">#&gt; [451] 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16</span></span>
+<span><span class="co">#&gt; [469] 16 16 16 16 16 16 16 16 16 16 16 17 17 17 17 17 17 17</span></span>
+<span><span class="co">#&gt; [487] 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 18</span></span>
+<span><span class="co">#&gt; [505] 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18</span></span>
+<span><span class="co">#&gt; [523] 18 18 18 18 18 18 18 18 18 18 18 18</span></span></code></pre></div>
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Acerca de este curso</a></div>
+<div class="next"><a href="identificaci%C3%B3n-de-valores-m%C3%ADnimos-y-m%C3%A1ximos-conteos-query.html"><span class="header-section-number">2</span> Identificación de valores mínimos y máximos, conteos (QUERY)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#an%C3%A1lisis-exploratorio"><span class="header-section-number">1</span> Análisis Exploratorio</a></li>
+<li><a class="nav-link" href="#introducci%C3%B3n"><span class="header-section-number">1.1</span> Introducción</a></li>
+<li><a class="nav-link" href="#premisas-industriales"><span class="header-section-number">1.2</span> Premisas Industriales</a></li>
+<li><a class="nav-link" href="#kdd"><span class="header-section-number">1.3</span> KDD</a></li>
+<li><a class="nav-link" href="#comprension-del-dominio-de-estudio"><span class="header-section-number">1.4</span> Comprension del dominio de estudio</a></li>
+<li><a class="nav-link" href="#limpieza-y-procesamiento-de-datos"><span class="header-section-number">1.5</span> Limpieza y procesamiento de datos</a></li>
+<li><a class="nav-link" href="#miner%C3%ADa-de-datos"><span class="header-section-number">1.6</span> Minería de datos</a></li>
+<li><a class="nav-link" href="#interpretaci%C3%B3n-de-patrones-minados"><span class="header-section-number">1.7</span> Interpretación de patrones minados</a></li>
+<li><a class="nav-link" href="#imputaci%C3%B3n-de-datos"><span class="header-section-number">1.8</span> Imputación de datos</a></li>
+<li>
+<a class="nav-link" href="#detecci%C3%B3n-en-r"><span class="header-section-number">1.9</span> Detección en R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#eliminar-datos-ausentes"><span class="header-section-number">1.9.1</span> Eliminar datos ausentes</a></li>
+<li><a class="nav-link" href="#uso-de-na.action-com-parametro-de-function-modelo-lineal"><span class="header-section-number">1.9.2</span> Uso de na.action com parametro de function modelo lineal</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#limpieza-de-datos"><span class="header-section-number">1.10</span> Limpieza de datos</a></li>
+<li><a class="nav-link" href="#missing-completely-at-random-mcar"><span class="header-section-number">1.11</span> Missing Completely at Random (MCAR)</a></li>
+<li><a class="nav-link" href="#missing-at-random-mar"><span class="header-section-number">1.12</span> Missing at Random (MAR)</a></li>
+<li><a class="nav-link" href="#not-missing-at-random-nmar"><span class="header-section-number">1.13</span> Not Missing at Random (NMAR)</a></li>
+<li>
+<a class="nav-link" href="#an%C3%A1lisis-univariado"><span class="header-section-number">1.14</span> Análisis Univariado</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#qu%C3%A9-es-un-an%C3%A1lisis-exploratorio"><span class="header-section-number">1.14.1</span> Qué es un análisis exploratorio</a></li>
+<li><a class="nav-link" href="#por-qu%C3%A9-es-crucial"><span class="header-section-number">1.14.2</span> ¿Por qué es crucial?</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#t%C3%A9cnicas-comunes-en-el-aed"><span class="header-section-number">1.15</span> Técnicas comunes en el AED</a></li>
+<li>
+<a class="nav-link" href="#insatalar-paquetes-y-datasets"><span class="header-section-number">1.16</span> Insatalar Paquetes y Datasets</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#listado-de-datasets"><span class="header-section-number">1.16.1</span> Listado de Datasets</a></li>
+<li><a class="nav-link" href="#visualizaci%C3%B3n-de-las-estructura-del-dataset"><span class="header-section-number">1.16.2</span> Visualización de las estructura del dataset</a></li>
+<li><a class="nav-link" href="#exploraci%C3%B3n-de-la-clase"><span class="header-section-number">1.16.3</span> Exploración de la clase</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#acceso-a-datos-individuales-filas-y-columnas"><span class="header-section-number">1.17</span> Acceso a datos individuales, filas y columnas</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#datos-ordenados"><span class="header-section-number">1.17.1</span> Datos ordenados</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/01-Ana_Exploratorio.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/01-Ana_Exploratorio.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Analitica de Datos Industriales Segunda Edición</strong>" was written by Dr. Ing. Ricardo R. Palma. It was last built on 2025-10-22.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
